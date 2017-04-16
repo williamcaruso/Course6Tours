@@ -29,6 +29,7 @@ body, html {
     height:50px;
     margin-left: 200px;
     margin-right: 200px;
+    padding-top: 20px;
 }
 
 #calendar{
