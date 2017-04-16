@@ -16,5 +16,9 @@ $("#add_visitor").click(function() {
 
 	$("<br>").appendTo("#names");
 	newTextBox.appendTo("#names");
+	$("<br>").appendTo("#names");
 
 })
+
+//Calendar Source
+//https://www.w3schools.com/howto/howto_css_calendar.asp
