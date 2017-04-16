@@ -7,6 +7,19 @@ body, html {
     text-indent: 2.0em;
 }
 
+.BackButton{
+    float: left;
+}
+.ForwardButton{
+    float:right;
+}
+.forwardBack{
+    width:100%;
+    height:50px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
 /* workaround modal-open padding issue */
 body.modal-open {
     padding-right:0 !important;
