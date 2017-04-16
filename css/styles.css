@@ -1,5 +1,16 @@
 body, html {
   height:100%;
+
+
+}
+
+#personal_info_form {
+    margin-left:100px;
+    line-height: 150%;
+}
+
+#special {
+    font-weight: bold;
 }
 
 /* workaround modal-open padding issue */
@@ -11,6 +22,8 @@ body.modal-open {
 #sidebar {
    padding-left:0;
 }
+
+
 
 /*
  * Off Canvas at medium breakpoint
@@ -239,3 +252,4 @@ body.modal-open {
     right: 50%;
     margin-right: 20px;
 }
+
