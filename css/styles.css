@@ -2,6 +2,11 @@ body, html {
   height:100%;
 }
 
+
+.choices{
+    text-indent: 2.0em;
+}
+
 /* workaround modal-open padding issue */
 body.modal-open {
     padding-right:0 !important;
