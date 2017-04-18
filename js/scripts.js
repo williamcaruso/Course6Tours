@@ -18,7 +18,7 @@ $(document).ready(function() {
    	  		slot.id = "td"+row+day
    	  		$("#td"+row+day).attr("align","center")
    	  		if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) == -1){
-   	  			$("#td"+row+day).css("background-color","gray")	
+   	  			$("#td"+row+day).css("background-color","#D3D3D3")	
    	  		}
    	  		if(day == 0){
    	  			document.getElementById('td'+row+'0').innerHTML = times[row-2];
