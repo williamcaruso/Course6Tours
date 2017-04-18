@@ -5,7 +5,8 @@ $(document).ready(function() {
   });
 
   times=["10am","11am","12pm","1pm","2pm","3pm","4pm"]
-  days=["Mon 5", "Tues 6", "Wednes 7", "Thurs 8", "Fri 9"]
+  days=["Mon 8", "Tues 9", "Wednes 10", "Thurs 11", "Fri 12"]
+  reserved=["td33","td43","td63"]
 
   table=document.getElementById("calendar")
    for(row=0;row<9;row++){
@@ -16,6 +17,9 @@ $(document).ready(function() {
    	  		slot = thisrow.insertCell(day)
    	  		slot.id = "td"+row+day
    	  		$("#td"+row+day).attr("align","center")
+   	  		if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) == -1){
+   	  			$("#td"+row+day).css("background-color","gray")	
+   	  		}
    	  		if(day == 0){
    	  			document.getElementById('td'+row+'0').innerHTML = times[row-2];
    	  		}
@@ -29,7 +33,7 @@ $(document).ready(function() {
    	   		bar.id = "bar"+row;
    	   		$("#bar"+row).attr("align","center")
    	   		$("#bar"+row).attr("colspan","6")
-   	   	    document.getElementById('bar0').innerHTML = "< March >";
+   	   	    document.getElementById('bar0').innerHTML = "< June >";
    	   	}
    	   	if(row==1){
    	   		for(day=0;day<6;day++){
