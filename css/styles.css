@@ -33,7 +33,10 @@ body, html {
 }
 
 #calendar{
-    width: 80%;
+    width:80%;
+    height:80%;
+    table-layout:fixed;
+    overflow:hidden;
 }
 
 /*Source for calendar code*/
