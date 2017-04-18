@@ -39,6 +39,11 @@ body, html {
     overflow:hidden;
 }
 
+#choices{
+    width:80%;
+    height:100%;
+}
+
 /*Source for calendar code*/
 /*https://www.w3schools.com/howto/howto_css_calendar.asp*/
 ul {list-style-type: none;}
