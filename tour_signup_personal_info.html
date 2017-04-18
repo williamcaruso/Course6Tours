@@ -31,15 +31,7 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-                <li class="nav-item">
-                    <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Plan Your Visit
-                        ▾</a>
-                    <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
-                       <li class="nav-item"><a class="nav-link" href="">What to bring</a></li>
-                       <li class="nav-item"><a class="nav-link" href="">Where to go</a></li>
-                       <li class="nav-item"><a class="nav-link" href="">What to expect</a></li>
-                    </ul>
-                </li>
+
                 <li class="nav-item"><a class="nav-link" href="map_location.html">Campus Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact_page.html">Contact</a></li>
@@ -47,62 +39,46 @@
         </div>
         <!--/col-->
 
-        <div class="col-md-9 col-lg-10 main">
+        <div class="col-xs-12 col-md-9 col-lg-10 main">
 
-            <!--toggle sidebar button
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>-->
-
-            <h1 class="display-2 hidden-xs-down">
-            MIT Course 6 Tours
-            </h1>
+            <h1 class="hidden-xs-down">MIT Course 6 Tour Request</h1>
             <p class="lead hidden-xs-down">The Department of Electrical Engineering and Computer Science</p>
 
-            <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <strong>Holy guacamole!</strong> It's free.. this is an example theme.
-            </div>
+            <div class="row">
 
-
-            <div class="mdl-card mdl-shadow--2dp">
-
-                <div class="mdl-card__supporting-text">
-
-                    <div class="mdl-stepper-horizontal-alternative active-step">
-                        <div class="mdl-stepper-step active-step">
-                            <a href="tour_signup_personal_info.html" class='btn'>
-                                <div class="mdl-stepper-circle"><span>1</span></div>
-                                <div class="mdl-stepper-title">Personal Information</div>
-                                <div class="mdl-stepper-bar-left"></div>
-                                <div class="mdl-stepper-bar-right"></div>
-                            </a>
-                        </div>
-                        <div class="mdl-stepper-step">
-                            <a href = "tour_signup_schedule.html" class='btn'>
-                                <div class="mdl-stepper-circle"><span>2</span></div>
-                                <div class="mdl-stepper-title">Pick Your Dates</div>
-                                <div class="mdl-stepper-bar-left"></div>
-                                <div class="mdl-stepper-bar-right"></div>
-                            </a>
-                        </div>
-                        <div class="mdl-stepper-step">
-                            <a href="tour_signup_confirm.html" class= 'btn'>
-                                <div class="mdl-stepper-circle"><span>3</span></div>
-                                <div class="mdl-stepper-title">Submit</div>
-                                <div class="mdl-stepper-bar-left"></div>
-                                <div class="mdl-stepper-bar-right"></div>
-                            </a>
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__supporting-text">
+                        <div class="mdl-stepper-horizontal-alternative active-step">
+                            <div class="mdl-stepper-step active-step">
+                                <a href="tour_signup_personal_info.html" class='btn'>
+                                    <div class="mdl-stepper-circle"><span>1</span></div>
+                                    <div class="mdl-stepper-title">Personal Information</div>
+                                    <div class="mdl-stepper-bar-left"></div>
+                                    <div class="mdl-stepper-bar-right"></div>
+                                </a>
+                            </div>
+                            <div class="mdl-stepper-step">
+                                <a href = "tour_signup_schedule.html" class='btn'>
+                                    <div class="mdl-stepper-circle"><span>2</span></div>
+                                    <div class="mdl-stepper-title">Pick Your Dates</div>
+                                    <div class="mdl-stepper-bar-left"></div>
+                                    <div class="mdl-stepper-bar-right"></div>
+                                </a>
+                            </div>
+                            <div class="mdl-stepper-step">
+                                <a href="tour_signup_confirm.html" class= 'btn'>
+                                    <div class="mdl-stepper-circle"><span>3</span></div>
+                                    <div class="mdl-stepper-title">Confirmation</div>
+                                    <div class="mdl-stepper-bar-left"></div>
+                                    <div class="mdl-stepper-bar-right"></div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-            <div class="row mb-3">
+
+            <div class="row">
                 <div id="personal_info_form">
 
                     <form class="">
@@ -142,8 +118,8 @@
                             <label><input type="checkbox" value="" name="cs"> Computer Science Focused Tour</label>
                         </div>
                         <div class='forwardBack'>
-                            <a class="ForwardButton "
-                            href="tour_signup_schedule.html"><button type="submit" class="btn btn-success pull-right">Next</button></a>
+                            <button type="submit" formaction="tour_signup_schedule.html"
+                                        class="btn btn-primary pull-right">Next</button>
                         </div>
 
 
