@@ -13,6 +13,7 @@ $("#add_visitor").click(function() {
 	     .attr("type", 'text')
 	     .attr("placeholder", "Visitor Name")
 	     .attr("size", "50")
+	     .attr("class","form-control")
 
 	$("<br>").appendTo("#names");
 	newTextBox.appendTo("#names");
