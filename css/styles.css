@@ -47,6 +47,8 @@ body, html {
 .num{
     border:dashed;
     border-color: #D3D3D3;
+    height:30px;
+    width:60px;
 }
 
 /*Source for calendar code*/
