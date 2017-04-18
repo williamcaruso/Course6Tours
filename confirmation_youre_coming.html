@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Course 6 Tours RSVP</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+</head>
+
+<body>
+	<div style='margin:10%;'>
+		Click to RSVP before your tour!
+		<p>
+		If you have any questions please check out our website <a href="index.html">Course 6 Tours</a> or for more specific questions email Anne Hunter at <a href="mailto:anneh@mit.edu">anneh@mit.edu</a>.
+		<p>
+
+	    <a class="btn btn-primary" href="#" style ='float:left; margin-left:150px;' onclick="myFunction()">Yes I can come!</a>
+
+	    <p>
+
+	    <a class="btn btn-primary" href="#" style='float:right; margin-right:150px;' onclick="myFunction()">No I cannot come :(</a>
+	    <p>
+
+	    <p style='margin-top: 100px' id="demo"></p>
+
+	</div>
+
+	<script>
+		function myFunction() {
+    	document.getElementById("demo").innerHTML = "Thank you for RSVPing!";
+		}
+	</script>
+
+</body>
+
+</html>
