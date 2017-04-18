@@ -4,9 +4,9 @@ $(document).ready(function() {
     $('.row-offcanvas').toggleClass('active');
   });
 
-  times=["10am","11am","12pm","1pm","2pm","3pm","4pm"]
-  days=["Mon 8", "Tues 9", "Wednes 10", "Thurs 11", "Fri 12"]
-  reserved=["td33","td43","td63"]
+  	const times=["10am","11am","12pm","1pm","2pm","3pm","4pm"]
+	const days=["Mon 8", "Tues 9", "Wednes 10", "Thurs 11", "Fri 12"]
+    const reserved=["td33","td43","td63"]
 
   table=document.getElementById("calendar")
    for(row=0;row<9;row++){
@@ -52,6 +52,10 @@ $(document).ready(function() {
   
 });
 
+
+const visitorFormGroup = '<div class="form-group row"> <label for="email" class="col-2 col-form-label">Email:</label> <div class="col-10"> <input class="form-control" id="email" type="text" name="email" placeholder="Email"size=50> </div> </div>'
+
+
 //http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
 $("#add_visitor").click(function() {
 
@@ -61,9 +65,7 @@ $("#add_visitor").click(function() {
 	     .attr("size", "50")
 	     .attr("class","form-control")
 
-	$("<br>").appendTo("#names");
-	newTextBox.appendTo("#names");
-	$("<br>").appendTo("#names");
+	$(visitorFormGroup).appendTo("#names");
 
 })
 

@@ -106,23 +106,50 @@
                 <div id="personal_info_form">
 
                     <form class="">
-                        <div id="names">
-                        <input class="form-control" type="text" name="name" placeholder="Name" size=50><br>
-                        <br>
-                        <input class="form-control" type="text" name="email" placeholder="Email" size=50><br>
-                        <br>
-                        <button class="btn btn-primary" id="add_visitor" type="button">Add Another Visitor</button><br>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-2 col-form-label">Name:</label>
+                            <div class="col-10">
+                                <input required class="form-control" id="name" type="text" name="name"
+                                       placeholder="Name"
+                                        size=50>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-2 col-form-label">Email:</label>
+                            <div class="col-10">
+                                <input required class="form-control" id="email" type="text" name="email"
+                                       placeholder="Email"
+                                       size=50>
+                            </div>
+                        </div>
+
+                        <div class="" id="names">
+                            <button class="btn btn-primary" id="add_visitor" type="button">Add Another Visitor</button>
+                            <br>
+                            <br>
                         </div>
                         <br>
-                        <div id="special"> Special Requests: </div> 
-                        <input type="checkbox" name="accessible"> Handicap Accessible Tour<br>
-                        <input type="checkbox" name="ee"> Electrical Engineering Focused Tour<br>
-                        <input type="checkbox" name="cs"> Computer Science Focused Tour<br>
+                        <div id="special"> Special Requests: </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" name="accessible"> Handicap Accessible Tour</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" name="ee"> Electrical Engineering Focused
+                                Tour</label>
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" name="cs"> Computer Science Focused Tour</label>
+                        </div>
+                        <div class='forwardBack'>
+                            <a class="ForwardButton "
+                            href="tour_signup_schedule.html"><button type="submit" class="btn btn-success pull-right">Next</button></a>
+                        </div>
+
+
                     </form>
                 </div>
-                 <div class='forwardBack'>
-                        <a class="ForwardButton btn btn-success" href="tour_signup_schedule.html">Next</a>
-                </div>
+
             </div>
             <!--/row-->
 
