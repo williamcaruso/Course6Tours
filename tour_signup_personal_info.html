@@ -19,12 +19,10 @@
   </head>
   <body >
     <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-primary mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+
     <div class="flex-row d-flex">
         <a class="navbar-brand mb-1" href="index.html">Course 6 Tours</a>
-        <button type="button" class="hidden-md-up navbar-toggler" data-toggle="offcanvas" title="Toggle responsive left sidebar">
+        <button type="button" class="hidden-md-up navbar-toggler pull-right" data-toggle="offcanvas" title="Toggle responsive left sidebar">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -33,25 +31,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">Home <span class="sr-only">Home</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#features">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#myAlert" data-toggle="collapse">Wow</a>
-            </li>
+
         </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
-            </li>
-        </ul>
+
     </div>
 </nav>
 <div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-                <li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Plan Your Visit
                         ▾</a>
@@ -62,7 +50,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="map_location.html">Campus Map</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact_page.html">Contact</a></li>
             </ul>
         </div>
@@ -159,27 +147,6 @@
 </footer>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                This is a dashboard layout for Bootstrap 4. This is an example of the Modal component which you can use to show content. Any content can be placed inside the modal and it can use the Bootstrap grid classes.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary-outline" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
     <!--scripts loaded here-->
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

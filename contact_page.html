@@ -17,39 +17,18 @@
   </head>
   <body >
     <nav class="navbar navbar-fixed-top navbar-toggleable-sm navbar-inverse bg-primary mb-3">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+
     <div class="flex-row d-flex">
         <a class="navbar-brand mb-1" href="index.html">Course 6 Tours</a>
-        <button type="button" class="hidden-md-up navbar-toggler" data-toggle="offcanvas" title="Toggle responsive left sidebar">
+        <button type="button" class="hidden-md-up navbar-toggler pull-right" data-toggle="offcanvas" title="Toggle responsive left sidebar">
             <span class="navbar-toggler-icon"></span>
         </button>
-    </div>
-    <div class="navbar-collapse collapse" id="collapsingNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">Home</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#features">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#myAlert" data-toggle="collapse">Wow</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
-            </li>
-        </ul>
     </div>
 </nav>
 <div class="container-fluid" id="main">
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-                <li class="nav-item"><a class="nav-link" href="#">Overview</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Plan Your Visit
                         ▾</a>
@@ -60,7 +39,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="map_location.html">Campus Map</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact_page.html">Contact</a></li>
             </ul>
         </div>
@@ -68,33 +47,28 @@
 
         <div class="col-md-9 col-lg-10 main">
 
-            <!--toggle sidebar button
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>-->
-
             <h1 class="display-2 hidden-xs-down">
             MIT Course 6 Tours
             </h1>
             <p class="lead hidden-xs-down">The Department of Electrical Engineering and Computer Science</p>
 
-            <div class="alert alert-warning fade collapse" role="alert" id="myAlert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <strong>Holy guacamole!</strong> It's free.. this is an example theme.
+            <hr class="hidden-xs-down">
+            <h2>Contact</h2>
+            <br><br>
+            <h5>If you have any specific questions or concerns about your tour, please contact:</h5>
+            <br>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h3>Ms. Anne M. Hunter</h3>
+                    <p>Administrator, Course VI Undergraduate Programs</p>
+                    <a href="mailto:anneh@mit.edu">anneh@mit.edu</a>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h3>Ms. Vera Sayzew</h3>
+                    <p>Co-Administrator, Course VI Undergraduate Programs</p>
+                    <a href="mailto:vera@mit.edu">vera@mit.edu</a>
+                </div>h
             </div>
-            If you have any specific questions or concerns about your tour, please contact:
-            <p>
-            <h1>Ms. Anne M. Hunter</h1>
-            <p>Administrator, Course VI Undergraduate Programs</p>
-            <p>anneh@mit.edu</p>
-            <p>
-            <p>
-            <h1>Ms. Vera Sayzew</h1>
-            <p>Co-Administrator, Course VI Undergraduate Programs</p>
-            <p>vera@mit.edu</p>
             <!-- row -->
 
 
@@ -108,27 +82,6 @@
 </footer>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                This is a dashboard layout for Bootstrap 4. This is an example of the Modal component which you can use to show content. Any content can be placed inside the modal and it can use the Bootstrap grid classes.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary-outline" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
     <!--scripts loaded here-->
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
