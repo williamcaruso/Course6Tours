@@ -49,7 +49,7 @@
                         <div class="mdl-stepper-step">
                             <a href="tour_signup_personal_info.html" class='btn'>
                                 <div class="mdl-stepper-circle"><span>1</span></div>
-                                <div class="mdl-stepper-title">Personal Information</div>
+                                <div class="mdl-stepper-title">Personal Info</div>
                                 <div class="mdl-stepper-bar-left"></div>
                                 <div class="mdl-stepper-bar-right"></div>
                             </a>
@@ -74,6 +74,9 @@
                 </div>
 
             </div>
+            <h6 style="float:right">Drag and Drop your dates</h6>
+            <br>
+            <br>
             <div class="row mb-3">
                 <div class=" col-md-10" style='height:400px'>
                     <table id="calendar" border=1></table>
@@ -124,6 +127,34 @@
 
         var selectedImageID;
 
+        setTimeout(function () {
+            console.log(dataObject.date1_id)
+            const img1 = '<img class="num" id="first-choice" src="graphics/1.png" draggable="true" ondragstart="drag(event)">';
+            const img2 =
+                '<img class="num" id="second-choice" src="graphics/2.png" draggable="true" ondragstart="drag(event)">';
+            const img3 =
+                '<img class="num" id="third-choice" src="graphics/3.png" draggable="true" ondragstart="drag(event)">';
+            if (dataObject.date1 && dataObject.date1_id) {
+                $('#first-choice').remove();
+                var ele = document.getElementById(dataObject.date1_id);
+                ele.innerHTML =img1;
+            }
+            if (dataObject.date2 && dataObject.date2_id) {
+                $('#second-choice').remove();
+                var ele = document.getElementById(dataObject.date2_id);
+                ele.innerHTML =img2;
+                console.log(dataObject.date2_id, ele);
+            }
+            if (dataObject.date3 && dataObject.date3_id) {
+                $('#third-choice').remove();
+                var ele = document.getElementById(dataObject.date3_id);
+                ele.innerHTML =img3;
+                console.log(dataObject.date3_id, ele);
+            }
+        }, 10);
+
+
+
         function allowDrop(ev) {
             ev.preventDefault();
         }
@@ -142,12 +173,16 @@
             switch(selectedImageID) {
                 case 'first-choice':
                     dataObject.date1 = ev.srcElement.title;
+                    dataObject.date1_id = ev.srcElement.id;
                     break;
                 case 'second-choice':
                     dataObject.date2 = ev.srcElement.title;
+                    dataObject.date2_id = ev.srcElement.id;
                     break;
                 case 'third-choice':
                     dataObject.date3 = ev.srcElement.title;
+                    dataObject.date3_id = ev.srcElement.id;
+
                     break;
             }
             localStorage.setItem('personal_info_model', JSON.stringify(dataObject));

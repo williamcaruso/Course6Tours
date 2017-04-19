@@ -17,13 +17,13 @@ var personal_info_model = {
 
 // Bootstrap Form Group for adding a visitor
 const visitorFormGroup = '<div class="form-group row"> <label for="visitor" class="col-2' +
-    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text"' +
+    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +
     ' name="visitor" placeholder="e.g. Alyssa Hacker"size=50> </div> </div>';
 
 // Times, days and reserved spots for the calendar
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
 const days = ["Mon 8", "Tues 9", "Wed 10", "Thurs 11", "Fri 12"];
-const reserved = ["td33","td43","td63"];
+var reserved = ["td33","td43","td63"];
 
 
 /**
@@ -63,6 +63,25 @@ $(document).ready(function() {
      */
     const table=document.getElementById("calendar");
     if (table) {
+
+        var dataObject = localStorage.getItem('personal_info_model');
+
+        if (dataObject) {
+            if (dataObject.date1_id) {
+                reserved = [dataObject.date1_id];
+            }
+            if (dataObject.date2_id) {
+                reserved.push(dataObject.date2_id);
+            }
+            if (dataObject.date3_id) {
+                reserved.push(dataObject.date3_id);
+            }
+        } else {
+            reserved = ["td33","td43","td63"];
+            console.log(dataObject)
+        }
+
+
         for(var row=0;row<9;row++){
             var thisrow = table.insertRow(row);
             thisrow.id ="row"+row;

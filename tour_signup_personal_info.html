@@ -52,7 +52,7 @@
                             <div class="mdl-stepper-step active-step">
                                 <a href="tour_signup_personal_info.html" class='btn'>
                                     <div class="mdl-stepper-circle"><span>1</span></div>
-                                    <div class="mdl-stepper-title">Personal Information</div>
+                                    <div class="mdl-stepper-title">Personal Info</div>
                                     <div class="mdl-stepper-bar-left"></div>
                                     <div class="mdl-stepper-bar-right"></div>
                                 </a>
@@ -117,14 +117,12 @@
                         <div class="checkbox">
                             <label><input type="checkbox" value="" name="cs" id="cs-choice"> Computer Science Focused Tour</label>
                         </div>
-                        <div class=''>
-                            <a href="tour_signup_schedul.html"
-                                        class="btn btn-primary pull-right" id="submitPersonalInfo" float="right">Next</a>
-                        </div>
 
-<br>
-<br>
                     </form>
+                </div>
+
+                <div class='forwardBack'>
+                    <a href="tour_signup_schedul.html"class="btn btn-primary pull-right" id="submitPersonalInfo" float="right">Next</a>
                 </div>
 
             </div>
@@ -149,6 +147,36 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     
     <script src="js/scripts.js"></script>
+
+    <script>
+            var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+            if (typeof(dataObject) !== 'undefinted') {
+                dataObject.name ? $('#name').val(dataObject.name) : null;
+                dataObject.email ? $('#email').val(dataObject.email) : null;
+
+                for (var i=0; i < dataObject.visitors.length; i++) {
+                    $(visitorFormGroup).appendTo("#names");
+                }
+
+                var visitors = document.getElementsByClassName("extraVisitor");
+                for(var j=0; j<visitors.length; j++) {
+                    visitors[j].value =dataObject.visitors[j];
+                }
+
+                if (dataObject.handicap) {
+                    $('#accessible-choice').prop('checked', true);
+                }
+                if (dataObject.prefer_ee) {
+                    $('#ee-choice').prop('checked', true);
+                }
+                if (dataObject.prefer_cs) {
+                    $('#cs-choice').prop('checked', true);
+                }
+
+            }
+
+    </script>
+
   </body>
 </html>
 
