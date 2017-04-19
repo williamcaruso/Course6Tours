@@ -125,7 +125,6 @@
 
         var selectedImageID;
 
-
         function allowDrop(ev) {
             ev.preventDefault();
         }
@@ -133,7 +132,6 @@
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);
             selectedImageID = ev.srcElement.id;
-            console.log(selectedImageID)
         }
 
         function drop(ev) {
