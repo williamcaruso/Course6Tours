@@ -8,8 +8,7 @@ var personal_info_model = {
     date3: '',
     handicap:false,
     prefer_ee:false,
-    prefer_cs:false,
-    initialized:false, 
+    prefer_cs:false, 
 };
 
 
@@ -20,10 +19,10 @@ $(document).ready(function() {
         var retrievedObject = localStorage.getItem('personal_info_model');
         if (typeof(retrievedObject) !== "undefined") {
             localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
+            console.log("created personal_info_model");
         }
         else {
             console.log('personal_info_model: ', JSON.parse(retrievedObject));
-
         }
 
     } else {
@@ -116,7 +115,7 @@ $("#submitPersonalInfo").click(function() {
     var eePref = $("#ee-choice").is(':checked');
     var csPref = $("#cs-choice").is(':checked');
     if (typeof(Storage) !== "undefined") {
-        var dataObject = localStorage.getItem('personal_info_model');
+        var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
         dataObject['name'] = requestorName;
         dataObject['email'] = requestorEmail;
         dataObject['visitors'] = additionalVisitors;
