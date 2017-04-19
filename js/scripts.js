@@ -16,15 +16,15 @@ var personal_info_model = {
 $(document).ready(function() {
 
     if (typeof(Storage) !== "undefined") {
-        console.log('we have storage!')
 
         var retrievedObject = localStorage.getItem('personal_info_model');
-        console.log('personal_info_model: ', JSON.parse(retrievedObject));
+        if (typeof(retrievedObject) !== "undefined") {
+            localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
+        }
+        else {
+            console.log('personal_info_model: ', JSON.parse(retrievedObject));
 
-        localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
-
-        var retrievedObject = localStorage.getItem('personal_info_model');
-        console.log('personal_info_model: ', JSON.parse(retrievedObject));
+        }
 
     } else {
         // Sorry! No Web Storage support..
