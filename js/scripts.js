@@ -40,7 +40,7 @@ $(document).ready(function() {
      */
     // If local storage exists, retrieve the data object
     var retrievedObject = localStorage.getItem('personal_info_model');
-    if (typeof(retrievedObject) === "undefined" || typeof(retrievedObject) !== 'null') {
+    if (typeof(retrievedObject) === "undefined" || retrievedObject === null) {
         // If the object does not exist, create one
         localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
     }
