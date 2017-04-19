@@ -128,7 +128,7 @@
         var selectedImageID;
 
         setTimeout(function () {
-            console.log(dataObject.date1_id)
+
             const img1 = '<img class="num" id="first-choice" src="graphics/1.png" draggable="true" ondragstart="drag(event)">';
             const img2 =
                 '<img class="num" id="second-choice" src="graphics/2.png" draggable="true" ondragstart="drag(event)">';
@@ -143,13 +143,11 @@
                 $('#second-choice').remove();
                 var ele = document.getElementById(dataObject.date2_id);
                 ele.innerHTML =img2;
-                console.log(dataObject.date2_id, ele);
             }
             if (dataObject.date3 && dataObject.date3_id) {
                 $('#third-choice').remove();
                 var ele = document.getElementById(dataObject.date3_id);
                 ele.innerHTML =img3;
-                console.log(dataObject.date3_id, ele);
             }
         }, 10);
 

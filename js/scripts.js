@@ -10,6 +10,9 @@ var personal_info_model = {
     date1: '',
     date2: '',
     date3: '',
+    date1_id: '',
+    date2_id: '',
+    date3_id: '',
     handicap:false,
     prefer_ee:false,
     prefer_cs:false, 
@@ -59,21 +62,21 @@ $(document).ready(function() {
     const table=document.getElementById("calendar");
     if (table) {
 
-        var dataObject = localStorage.getItem('personal_info_model');
+        var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+        reserved=[];
 
         if (dataObject) {
-            if (dataObject.date1_id) {
-                reserved = [dataObject.date1_id];
+            if (dataObject.date1 && dataObject.date1_id) {
+                reserved.push(dataObject.date1_id);
             }
-            if (dataObject.date2_id) {
+            if (dataObject.date2 && dataObject.date2_id) {
                 reserved.push(dataObject.date2_id);
             }
-            if (dataObject.date3_id) {
+            if (dataObject.date3 && dataObject.date3_id) {
                 reserved.push(dataObject.date3_id);
             }
         } else {
             reserved = ["td33","td43","td63"];
-            console.log(dataObject)
         }
 
 
