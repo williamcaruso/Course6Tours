@@ -137,19 +137,23 @@
         }
 
         function drop(ev) {
+            dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById(data));
 
-            const td = ev.srcElement;
             switch(selectedImageID) {
                 case 'first-choice':
-                    dataObject.date1 = td.title;
+                    dataObject.date1 = ev.srcElement.title;
+                    break;
                 case 'second-choice':
-                    dataObject.date2 = td.title;
+                    dataObject.date2 = ev.srcElement.title;
+                    break;
                 case 'third-choice':
-                    dataObject.date3 = td.title;
+                    dataObject.date3 = ev.srcElement.title;
+                    break;
             }
+            localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
         }
     </script>
   </body>
