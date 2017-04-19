@@ -42,7 +42,6 @@
             <h1 class="">MIT Course 6 Tour Request</h1>
             <p class="lead hidden-xs-down">The Department of Electrical Engineering and Computer Science</p>
 
-
             <div class="mdl-card mdl-shadow--2dp">
 
                   <div class="mdl-card__supporting-text">
@@ -78,22 +77,23 @@
             </div>
             <div class="row mb-3">
                 <div class=" col-md-10" style='height:400px'>
-                 <table id="calendar" border=1>
-                </table>
-
+                    <table id="calendar" border=1></table>
                 </div>
                 <div class=" col-md-2">
-                <table id="choices" frame="box" rules="none">
-                <tr><td><center><img class="num" id="first-choice" src="graphics/1.png"></center></td></tr>
-                <tr><td><center><img class="num" id="second-choice" src="graphics/2.png"></center></td></tr>
-                <tr><td><center><img class="num" id="third-choice" src="graphics/3.png"></center></td></tr>
-                </table>
+                    <table id="choices" frame="box" rules="none">
+                        <tr><td><center><img class="num" id="first-choice" src="graphics/1.png" draggable="true"
+                                             ondragstart="drag(event)"></center></td></tr>
+                        <tr><td><center><img class="num" id="second-choice" src="graphics/2.png" draggable="true"
+                                             ondragstart="drag(event)"></center></td></tr>
+                        <tr><td><center><img class="num" id="third-choice" src="graphics/3.png" draggable="true"
+                                             ondragstart="drag(event)"></center></td></tr>
+                    </table>
                 </div>
-                            <div class='forwardBack'>
-                <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
+                <div class='forwardBack'>
+                    <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
 
-                <a class="ForwardButton btn btn-primary" href="tour_signup_confirm.html">Next</a>
-            </div>
+                    <a class="ForwardButton btn btn-primary" href="tour_signup_confirm.html">Next</a>
+                </div>
             </div>
 
                
@@ -117,5 +117,22 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     
     <script src="js/scripts.js"></script>
+
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
   </body>
 </html>

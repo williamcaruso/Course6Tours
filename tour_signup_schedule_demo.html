@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.css" />
 
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -39,18 +40,14 @@
 
         <div class="col-md-9 col-lg-10 main">
 
-            <!--toggle sidebar button
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>-->
-
             <h1 class="">MIT Course 6 Tour Request</h1>
             <p class="lead hidden-xs-down">The Department of Electrical Engineering and Computer Science</p>
 
-
             <div class="mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__supporting-text">
-                    <div class="mdl-stepper-horizontal-alternative">
+
+                  <div class="mdl-card__supporting-text">
+
+                    <div class="mdl-stepper-horizontal-alternative active-step">
                         <div class="mdl-stepper-step">
                             <a href="tour_signup_personal_info.html" class='btn'>
                                 <div class="mdl-stepper-circle"><span>1</span></div>
@@ -59,7 +56,7 @@
                                 <div class="mdl-stepper-bar-right"></div>
                             </a>
                         </div>
-                        <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-step active-step">
                             <a href = "tour_signup_schedul.html" class='btn'>
                                 <div class="mdl-stepper-circle"><span>2</span></div>
                                 <div class="mdl-stepper-title">Pick Your Dates</div>
@@ -67,7 +64,7 @@
                                 <div class="mdl-stepper-bar-right"></div>
                             </a>
                         </div>
-                        <div class="mdl-stepper-step active-step">
+                        <div class="mdl-stepper-step">
                             <a href="tour_signup_confirm.html" class= 'btn'>
                                 <div class="mdl-stepper-circle"><span>3</span></div>
                                 <div class="mdl-stepper-title">Confirmation</div>
@@ -76,50 +73,33 @@
                             </a>
                         </div>
                     </div>
-
                 </div>
 
             </div>
             <div class="row mb-3">
-                <div class=" col-xs-12">
-                    <div id="tour-name"></div>
-                    <div id="tour-email"></div>
-                    <strong>Visitors: </strong><div id="tour-visitors" class="choices"></div>
-
-                    <p><strong>You have requested:</strong></p>
-
-                    <div class="choices">
-                        <p>1st Choice: June 10th, 1-2pm</p>
-                        <p>2nd Choice: June 10th, 11-12pm</p>
-                        <p>3rd Choice: June 10th, 2-3pm</p>
-                    </div>
-                    <br>
-                    <p><strong>Special Requests:</strong></p>
-
-                    <div class="choices" id="tourPrefs">
-                        
-                    </div>
-                    <p>If later you'd like to make any changes please contact Anne Hunter at <a
-                        href="mailto:anneh@mit.edu">anneh@mit.edu</a>.
-
-                    </p>
-
-
+                <div class=" col-md-10" style='height:400px'>
+                    <table id="calendar" border=1></table>
+                </div>
+                <div class=" col-md-2">
+                    <table id="choices" frame="box" rules="none">
+                        <tr><td><center><img class="num" id="first-choice" src="graphics/1.png"></center></td></tr>
+                        <tr><td><center><img class="num" id="second-choice" src="graphics/2.png"></center></td></tr>
+                        <tr><td><center><img class="num" id="third-choice" src="graphics/3.png"></center></td></tr>
+                    </table>
                 </div>
                 <div class='forwardBack'>
-                        <a class="BackButton btn btn-primary" href="tour_signup_schedul.html">Back</a>
+                    <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
 
-                        <a class="ForwardButton btn btn-primary" href="email_popup.html" target="_blank">Submit</a>
+                    <a class="ForwardButton btn btn-primary" href="tour_signup_confirm.html">Next</a>
                 </div>
             </div>
-            <!--/row-->
-
 
         </div>
         <!--/main col-->
     </div>
 
 </div>
+
 <!--/.container-->
 <footer class="container-fluid">
     <p class="text-right small">©2017 MIT EECS</p>
@@ -131,48 +111,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.js"></script>
+
     <script src="js/scripts.js"></script>
-
-    <script>
-        /**
-         * Retrieves from data from local storage and displays content on confirmation page
-         */
-        var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
-        var tourPrefs = $("#tourPrefs");
-
-        if(dataObject.name) {
-            var p = '<p><strong>'+dataObject.name+'</strong></p>';
-            $('#tour-name').append(p);
-        }
-        if(dataObject.email) {
-            var p = '<p>'+dataObject.email+'</p>';
-            $('#tour-email').append(p);
-        }
-        if(dataObject.visitors) {
-            var p = '<p>'+dataObject.visitors.join(', ');+'</p>';
-            $('#tour-visitors').append(p);
-        }
-        if(dataObject.handicap) {
-            var p = document.createElement('p');
-            var handicap = document.createTextNode("- Handicap Accessible");
-            p.append(handicap);
-            tourPrefs.append(p);
-        }
-        if(dataObject.prefer_ee) {
-            var p = document.createElement('p');
-            var eepref = document.createTextNode("- Prefer EE");
-            p.append(eepref);
-            tourPrefs.append(p);
-        }
-        if(dataObject.prefer_cs) {
-            var p = document.createElement('p');
-            var cspref = document.createTextNode("- Prefer CS");
-            p.append(cspref);
-            tourPrefs.append(p);
-        }
-        
-    </script>
-
   </body>
 </html>
