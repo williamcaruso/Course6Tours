@@ -70,8 +70,12 @@ $(document).ready(function() {
                 var slot = thisrow.insertCell(day);
                 slot.id = "td"+row+day;
                 $("#td"+row+day).attr("align","center");
+
                 if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
                     $("#td"+row+day).css("background-color","#D3D3D3")
+                } else {
+                    $("#td"+row+day).attr("ondrop","drop(event)");
+                    $("#td"+row+day).attr("ondragover","allowDrop(event)");
                 }
                 if(day === 0){
                     document.getElementById('td'+row+'0').innerHTML = times[row-2];
@@ -100,8 +104,10 @@ $(document).ready(function() {
     }
 });
 
-
-//http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
+/**
+ * Used to Append more textboxes to a page
+ * http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
+ */
 $("#add_visitor").click(function() {
     $(visitorFormGroup).appendTo("#names");
 });
@@ -123,12 +129,6 @@ $("#submitPersonalInfo").click(function() {
     var csPref = $("#cs-choice").is(':checked');
     if (typeof(Storage) !== "undefined") {
         var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
-        console.log("requestorName", requestorName)
-        console.log("requestorEmail", requestorEmail)
-        console.log("additionalVisitors", additionalVisitors)
-        console.log("handicap", handicap)
-        console.log("eePref", eePref)
-        console.log("csPref", csPref)
         dataObject.name = requestorName;
         dataObject.email = requestorEmail;
         dataObject.visitors = additionalVisitors;
@@ -137,78 +137,91 @@ $("#submitPersonalInfo").click(function() {
         dataObject.prefer_cs = csPref;
         localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
 
-        var retrievedObject = localStorage.getItem('personal_info_model');
-        console.log('personal_info_model: ', JSON.parse(retrievedObject));
+    } else {
+        console.log("Unable to store form values.");
+    }
+});
+
+
+/**
+ * Called when the submitDates Button is clicked
+ * Saves form choices in local storage
+ */
+$("#submitDates").click(function() {
+
+    if (typeof(Storage) !== "undefined") {
+        var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
+        dataObject.date1 = date1;
+        dataObject.date2 = date2;
+        dataObject.date3 = date3;
+        localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
 
     } else {
         console.log("Unable to store form values.");
-
     }
 });
 
-
-// Drag and Drop
-
-
-// mouse events arrive here
-var oldPosition;
-var selectedCandy;
-var candyToSwapID;
-var selectedElement;
-
-var neighboringCandyIDs = {};
-
-var mouseOffsetX = 0;
-var mouseOffsetY = 0;
-
-$(document).on('mousedown', ".num", function(evt)
-{
-    mouseOffsetX = evt.offsetX;
-    mouseOffsetY = evt.offsetY;
-    selectedElement = this;
-    oldPosition = {top: this.style.top, left: this.style.left};
-    document.addEventListener ("mousemove" , mouseMove , false);
-});
-
-
-function mouseMove (ev) {
-    selectedElement.style.left=ev.pageX;
-    selectedElement.style.top= ev.pageY;
-    selectedElement.style.zIndex = 1;
-    selectedElement.style.pointerEvents = 'none';
-    console.log('moving')
-}
-
-$(document).on('mouseup', function(evt) {
-    if (selectedElement !== null) {
-        $('#'+selectedElement.id).animate({
-            left: oldPosition.left,
-            top: oldPosition.top
-        }, 200);
-    }
-    document.removeEventListener ("mousemove" , mouseMove , false);
-});
-
-$(document).on('mouseup', ".cell", function(evt) {
-    candyToSwapID = this.id;
-
-    if (neighboringCandyIDs.up === parseInt(candyToSwapID)) {
-        moveCandy('up', selectedCandy);
-    } else if (neighboringCandyIDs.down === parseInt(candyToSwapID)) {
-        moveCandy('down', selectedCandy);
-    } else if (neighboringCandyIDs.left === parseInt(candyToSwapID)) {
-        moveCandy('left', selectedCandy);
-    } else if (neighboringCandyIDs.right === parseInt(candyToSwapID)) {
-        moveCandy('right', selectedCandy);
-    } else {
-        $('#'+selectedElement.id).animate({
-            left: oldPosition.left,
-            top: oldPosition.top
-        }, 200);
-    }
-    selectedElement.style.pointerEvents = 'all';
-    selectedElement.style.zIndex = 0;
-    selectedElement = null;
-    document.removeEventListener ("mousemove" , mouseMove , false);
-});
-
+//
+// /**
+//  * Drag and Drop
+//  */
+// // mouse events arrive here
+// var oldPosition;
+// var selectedCandy;
+// var candyToSwapID;
+// var selectedElement;
+//
+// var neighboringCandyIDs = {};
+//
+// var mouseOffsetX = 0;
+// var mouseOffsetY = 0;
+//
+// $(document).on('mousedown', ".num", function(evt)
+// {
+//     mouseOffsetX = evt.offsetX;
+//     mouseOffsetY = evt.offsetY;
+//     selectedElement = this;
+//     oldPosition = {top: this.style.top, left: this.style.left};
+//     this.style.position = 'absolute';
+//     document.addEventListener ("mousemove" , mouseMove , false);
+//     console.log(this)
+// });
+//
+//
+// function mouseMove (ev) {
+//     console.log(ev.pageX, ev.pageY)
+//     selectedElement.style.left=ev.pageX;
+//     selectedElement.style.top= ev.pageY;
+//     selectedElement.style.zIndex = 1;
+//     selectedElement.style.pointerEvents = 'none';
+//     console.log('moving')
+// }
+//
+// // $(document).on('mouseup', function(evt) {
+// //     if (selectedElement !== null) {
+// //         $('#'+selectedElement.id).animate({
+// //             left: oldPosition.left,
+// //             top: oldPosition.top
+// //         }, 200);
+// //     }
+// //     document.removeEventListener ("mousemove" , mouseMove , false);
+// // });
+//
+// $(document).on('mouseup', "td", function(evt) {
+//
+//     this.style.position = 'relative';
+//
+//     $('#'+selectedElement.id).animate({
+//         left: oldPosition.left,
+//         top: oldPosition.top
+//     }, 200);
+//
+//     selectedElement.style.pointerEvents = 'all';
+//     selectedElement.style.zIndex = 0;
+//     selectedElement = null;
+//     document.removeEventListener ("mousemove" , mouseMove , false);
+//
+//     console.log('up', this)
+//
+// });
+//
