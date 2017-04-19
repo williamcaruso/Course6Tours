@@ -39,11 +39,6 @@
 
         <div class="col-md-9 col-lg-10 main">
 
-            <!--toggle sidebar button
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>-->
-
             <h1 class="">MIT Course 6 Tour Request</h1>
             <p class="lead hidden-xs-down">The Department of Electrical Engineering and Computer Science</p>
 
@@ -89,9 +84,9 @@
                     <p><strong>You have requested:</strong></p>
 
                     <div class="choices">
-                        <p>1st Choice: June 10th, 1-2pm</p>
-                        <p>2nd Choice: June 10th, 11-12pm</p>
-                        <p>3rd Choice: June 10th, 2-3pm</p>
+                        <p>1st Choice: <strong id="date1"></strong></p>
+                        <p>2nd Choice: <strong id="date2"></strong></p>
+                        <p>3rd Choice: <strong id="date3"></strong></p>
                     </div>
                     <br>
                     <p><strong>Special Requests:</strong></p>
@@ -101,7 +96,6 @@
                     </div>
                     <p>If later you'd like to make any changes please contact Anne Hunter at <a
                         href="mailto:anneh@mit.edu">anneh@mit.edu</a>.
-
                     </p>
 
 
@@ -141,6 +135,7 @@
         var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
         var tourPrefs = $("#tourPrefs");
 
+        // Name, email and visitors
         if(dataObject.name) {
             var p = '<p><strong>'+dataObject.name+'</strong></p>';
             $('#tour-name').append(p);
@@ -153,6 +148,8 @@
             var p = '<p>'+dataObject.visitors.join(', ');+'</p>';
             $('#tour-visitors').append(p);
         }
+
+        // Special Requests
         if(dataObject.handicap) {
             var p = document.createElement('p');
             var handicap = document.createTextNode("- Handicap Accessible");
@@ -171,7 +168,17 @@
             p.append(cspref);
             tourPrefs.append(p);
         }
-        
+
+        if(dataObject.date1) {
+            $('#date1').html(dataObject.date1);
+        }
+        if(dataObject.date2) {
+            $('#date2').html(dataObject.date2);
+        }
+        if(dataObject.date3) {
+            $('#date3').html(dataObject.date3);
+        }
+
     </script>
 
   </body>
