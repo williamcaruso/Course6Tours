@@ -20,6 +20,7 @@ $(document).ready(function() {
         var retrievedObject = localStorage.getItem('personal_info_model');
         if (typeof(retrievedObject) !== "undefined") {
             localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
+            console.log('personal_info_model: ', JSON.parse(retrievedObject));
         }
         else {
             console.log('personal_info_model: ', JSON.parse(retrievedObject));
@@ -105,6 +106,8 @@ $("#add_visitor").click(function() {
 });
 
 $("#submitPersonalInfo").click(function() {
+    console.log('personal_info_model pussy');
+
     var requestorName = $("#name").val();
     var requestorEmail = $("#email").val();
     var additionalVisitors = [];
@@ -116,13 +119,13 @@ $("#submitPersonalInfo").click(function() {
     var eePref = $("#ee-choice").is(':checked');
     var csPref = $("#cs-choice").is(':checked');
     if (typeof(Storage) !== "undefined") {
-        var dataObject = localStorage.getItem('personal_info_model');
-        dataObject['name'] = requestorName;
-        dataObject['email'] = requestorEmail;
-        dataObject['visitors'] = additionalVisitors;
-        dataObject['handicap'] = handicap;
-        dataObject['prefer_ee'] = eePref;
-        dataObject['prefer_cs'] = csPref;
+        var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
+        dataObject.name = requestorName;
+        dataObject.email = requestorEmail;
+        dataObject.visitors = additionalVisitors;
+        dataObject.handicap = handicap;
+        dataObject.prefer_ee = eePref;
+        dataObject.prefer_cs = csPref;
         localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
 
         var retrievedObject = localStorage.getItem('personal_info_model');
