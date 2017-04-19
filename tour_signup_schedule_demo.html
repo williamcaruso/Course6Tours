@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.css" />
 
     <link rel="stylesheet" href="css/styles.css" />
   </head>
@@ -77,16 +76,8 @@
 
             </div>
             <div class="row mb-3">
-                <div class=" col-md-10" style='height:400px'>
-                    <table id="calendar" border=1></table>
-                </div>
-                <div class=" col-md-2">
-                    <table id="choices" frame="box" rules="none">
-                        <tr><td><center><img class="num" id="first-choice" src="graphics/1.png"></center></td></tr>
-                        <tr><td><center><img class="num" id="second-choice" src="graphics/2.png"></center></td></tr>
-                        <tr><td><center><img class="num" id="third-choice" src="graphics/3.png"></center></td></tr>
-                    </table>
-                </div>
+                <div id='full-calendar'></div>
+
                 <div class='forwardBack'>
                     <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
 
@@ -112,9 +103,25 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.css" />
 
-    <script src="js/scripts.js"></script>
+    <script src="js/scripts.js">
+        $(document).ready(function() {
+
+            // page is now ready, initialize the calendar...
+
+            $('#full-calendar').fullCalendar({
+                // put your options and callbacks here
+                dayClick: function() {
+                    alert('a day has been clicked!');
+                }
+            })
+
+        });
+    </script>
+
+
   </body>
 </html>
