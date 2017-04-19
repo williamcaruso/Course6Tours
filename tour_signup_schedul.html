@@ -49,7 +49,7 @@
                         <div class="mdl-stepper-step">
                             <a href="tour_signup_personal_info.html" class='btn'>
                                 <div class="mdl-stepper-circle"><span>1</span></div>
-                                <div class="mdl-stepper-title">Personal Information</div>
+                                <div class="mdl-stepper-title">Personal Info</div>
                                 <div class="mdl-stepper-bar-left"></div>
                                 <div class="mdl-stepper-bar-right"></div>
                             </a>
@@ -74,6 +74,9 @@
                 </div>
 
             </div>
+            <h6 style="float:right">Drag and Drop your dates</h6>
+            <br>
+            <br>
             <div class="row mb-3">
                 <div class=" col-md-10" style='height:400px'>
                     <table id="calendar" border=1></table>
@@ -131,6 +134,7 @@
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);
             selectedImageID = ev.srcElement.id;
+            ev.srcElement.hide();
         }
 
         function drop(ev) {
