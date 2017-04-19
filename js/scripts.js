@@ -35,18 +35,13 @@ $(document).ready(function() {
      *  Creating a store in Local Storage to store form data over
      *  multiple pages
      */
-    // Using Local Storage to save form data over multiple pages
-    if (typeof(Storage) !== "undefined") {
-        // If local storage exists, retrieve the data object
-        var retrievedObject = localStorage.getItem('personal_info_model');
-        if (typeof(retrievedObject) === "undefined") {
-            // If the object does not exist, create one
-            localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
-        }
-    } else {
-        // No Local Storage support...
-        console.log('we Do NOT have storage!')
+    // If local storage exists, retrieve the data object
+    var retrievedObject = localStorage.getItem('personal_info_model');
+    if (typeof(retrievedObject) === "undefined" || retrievedObject === 'null') {
+        // If the object does not exist, create one
+        localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
     }
+
 
     /**
      *  Sidenav Toggle
