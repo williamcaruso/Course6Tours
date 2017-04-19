@@ -18,7 +18,7 @@ var personal_info_model = {
 // Bootstrap Form Group for adding a visitor
 const visitorFormGroup = '<div class="form-group row"> <label for="visitor" class="col-2' +
     ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text"' +
-    ' name="visitor" placeholder="Visitor Name"size=50> </div> </div>';
+    ' name="visitor" placeholder="e.g. Alyssa Hacker"size=50> </div> </div>';
 
 // Times, days and reserved spots for the calendar
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
