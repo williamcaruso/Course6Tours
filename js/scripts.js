@@ -17,7 +17,7 @@ $(document).ready(function() {
     if (typeof(Storage) !== "undefined") {
 
         var retrievedObject = localStorage.getItem('personal_info_model');
-        if (typeof(retrievedObject) !== "undefined") {
+        if (typeof(retrievedObject) == "undefined") {
             localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
             console.log("created personal_info_model");
             retrievedObject = localStorage.getItem('personal_info_model');
@@ -108,10 +108,10 @@ $("#add_visitor").click(function() {
 $("#submitPersonalInfo").click(function() {
     var requestorName = $("#name").val();
     var requestorEmail = $("#email").val();
-    var additionalVisitors = [];
+    var additionalVisitors = new Array();
     var visitors = document.getElementsByClassName("extraVisitor");
     for(i=0; i<visitors.length; i++) {
-      //additionalVisitors.append(visitors[i].value);
+        additionalVisitors.push(visitors[i].value);
     }
     var handicap = $("#accessible-choice").is(':checked');
     var eePref = $("#ee-choice").is(':checked');
