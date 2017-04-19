@@ -37,7 +37,7 @@ $(document).ready(function() {
     });
 
     const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
-    const days = ["Mon 8", "Tues 9", "Wednes 10", "Thurs 11", "Fri 12"];
+    const days = ["Mon 8", "Tues 9", "Wed 10", "Thurs 11", "Fri 12"];
     const reserved = ["td33","td43","td63"];
 
     const table=document.getElementById("calendar");
@@ -92,17 +92,7 @@ const visitorFormGroup = '<div class="form-group row"> <label for="visitor" clas
 
 //http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
 $("#add_visitor").click(function() {
-
-    /*var newTextBox = $(document.createElement('input'))
-        .attr("type", 'text')
-        .attr("placeholder", "Visitor Name")
-        .attr("size", "50")
-        .attr("class","form-control");
-    */
-
-
     $(visitorFormGroup).appendTo("#names");
-
 });
 
 $("#submitPersonalInfo").click(function() {
@@ -154,12 +144,11 @@ var neighboringCandyIDs = {};
 var mouseOffsetX = 0;
 var mouseOffsetY = 0;
 
-$(document).on('mousedown', "#num", function(evt)
+$(document).on('mousedown', ".num", function(evt)
 {
     mouseOffsetX = evt.offsetX;
     mouseOffsetY = evt.offsetY;
     selectedElement = this;
-    console.log(this)
     oldPosition = {top: this.style.top, left: this.style.left};
     document.addEventListener ("mousemove" , mouseMove , false);
 });
@@ -170,6 +159,7 @@ function mouseMove (ev) {
     selectedElement.style.top= ev.pageY;
     selectedElement.style.zIndex = 1;
     selectedElement.style.pointerEvents = 'none';
+    console.log('moving')
 }
 
 $(document).on('mouseup', function(evt) {

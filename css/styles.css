@@ -75,6 +75,7 @@ body, html {
     width:90%;
     margin-left: auto;
     margin-right: auto;
+    /*position: absolute;*/
 }
 
 /*Source for calendar code*/
@@ -256,6 +257,8 @@ body.modal-open {
 
 .card {
     overflow:hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .card-block .rotate {
@@ -431,3 +434,7 @@ body.modal-open {
     margin-right: 20px;
 }
 
+
+.active {
+    background-color: #025aa5;
+}
