@@ -71,6 +71,7 @@ $(document).ready(function() {
                     var slot = thisrow.insertCell(day);
                     slot.id = "td"+row+day;
                     $("#td"+row+day).attr("align","center");
+                    $("#td"+row+day).attr("class","slot");
                     $("#td"+row+day).attr("title",'June ' + days[day-1] + ' @ ' + times[row-2]);
 
                     if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
