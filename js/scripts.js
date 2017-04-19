@@ -17,7 +17,7 @@ $(document).ready(function() {
     if (typeof(Storage) !== "undefined") {
 
         var retrievedObject = localStorage.getItem('personal_info_model');
-        if typeof(retrievedObject) !== "undefined" {
+        if (typeof(retrievedObject) !== "undefined") {
             localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
         }
         else {
