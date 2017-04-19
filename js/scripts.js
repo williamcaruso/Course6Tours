@@ -8,7 +8,8 @@ var personal_info_model = {
     date3: '',
     handicap:false,
     prefer_ee:false,
-    prefer_cs:false
+    prefer_cs:false,
+    initialized:false, 
 };
 
 
@@ -16,6 +17,10 @@ $(document).ready(function() {
 
     if (typeof(Storage) !== "undefined") {
         console.log('we have storage!')
+
+        var retrievedObject = localStorage.getItem('personal_info_model');
+        console.log('personal_info_model: ', JSON.parse(retrievedObject));
+
         localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
 
         var retrievedObject = localStorage.getItem('personal_info_model');
@@ -80,22 +85,54 @@ $(document).ready(function() {
 
 
 const visitorFormGroup = '<div class="form-group row"> <label for="visitor" class="col-2' +
-    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control" id="visitor" type="text"' +
+    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text"' +
     ' name="visitor" placeholder="Visitor Name"size=50> </div> </div>';
 
 
 //http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
 $("#add_visitor").click(function() {
 
-    var newTextBox = $(document.createElement('input'))
+    /*var newTextBox = $(document.createElement('input'))
         .attr("type", 'text')
         .attr("placeholder", "Visitor Name")
         .attr("size", "50")
-        .attr("class","form-control")
+        .attr("class","form-control");
+    */
+
 
     $(visitorFormGroup).appendTo("#names");
 
-})
+});
+
+$("#submitPersonalInfo").click(function() {
+    var requestorName = $("#name").val();
+    var requestorEmail = $("#email").val();
+    var additionalVisitors = [];
+    var visitors = document.getElementsByClassName("extraVisitor");
+    for(i=0; i<visitors.length; i++) {
+      //additionalVisitors.append(visitors[i].value);
+    }
+    var handicap = $("#accessible-choice").is(':checked');
+    var eePref = $("#ee-choice").is(':checked');
+    var csPref = $("#cs-choice").is(':checked');
+    if (typeof(Storage) !== "undefined") {
+        var dataObject = localStorage.getItem('personal_info_model');
+        dataObject['name'] = requestorName;
+        dataObject['email'] = requestorEmail;
+        dataObject['visitors'] = additionalVisitors;
+        dataObject['handicap'] = handicap;
+        dataObject['prefer_ee'] = eePref;
+        dataObject['prefer_cs'] = csPref;
+        localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+
+        var retrievedObject = localStorage.getItem('personal_info_model');
+        console.log('personal_info_model: ', JSON.parse(retrievedObject));
+
+    } else {
+        console.log("Unable to store form values.");
+
+    }
+});
 
 //Calendar Source
 //https://www.w3schools.com/howto/howto_css_calendar.asp
