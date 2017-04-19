@@ -154,51 +154,20 @@ var neighboringCandyIDs = {};
 var mouseOffsetX = 0;
 var mouseOffsetY = 0;
 
-$(document).on('mousedown', ".cell", function(evt)
+$(document).on('mousedown', "#num", function(evt)
 {
     mouseOffsetX = evt.offsetX;
     mouseOffsetY = evt.offsetY;
     selectedElement = this;
-    selectedCandy = getCandyFromID(this.id);
+    console.log(this)
     oldPosition = {top: this.style.top, left: this.style.left};
     document.addEventListener ("mousemove" , mouseMove , false);
-
-    var leftCandy = board.getCandyInDirection(selectedCandy, 'left');
-    var rightCandy = board.getCandyInDirection(selectedCandy, 'right');
-    var upCandy = board.getCandyInDirection(selectedCandy, 'up');
-    var downCandy = board.getCandyInDirection(selectedCandy, 'down');
-
-    if (leftCandy) {
-        if (rules.isMoveTypeValid(selectedCandy, 'left')) {
-            neighboringCandyIDs.left = leftCandy.id
-        }
-    }
-    if (rightCandy) {
-        if (rules.isMoveTypeValid(selectedCandy, 'right')) {
-            neighboringCandyIDs.right = rightCandy.id
-        }    }
-    if (upCandy) {
-        if (rules.isMoveTypeValid(selectedCandy, 'up')) {
-            neighboringCandyIDs.up = upCandy.id
-        }    }
-    if (downCandy) {
-        if (rules.isMoveTypeValid(selectedCandy, 'down')) {
-            neighboringCandyIDs.down = downCandy.id
-        }    }
-
 });
 
 
 function mouseMove (ev) {
-    var boardOffset = $('#theBoard').offset();
-    var newLeft = ev.pageX - boardOffset.left;
-    var newTop = ev.pageY -  boardOffset.top;
-    if (newLeft >= mouseOffsetX  && newLeft <= 320-CANDY_SIZE+mouseOffsetX){
-        selectedElement.style.left = newLeft - mouseOffsetX + "px";
-    }
-    if (newTop >= mouseOffsetY  && newTop <= 320-CANDY_SIZE+mouseOffsetY) {
-        selectedElement.style.top = newTop - mouseOffsetY + "px";
-    }
+    selectedElement.style.left=ev.pageX;
+    selectedElement.style.top= ev.pageY;
     selectedElement.style.zIndex = 1;
     selectedElement.style.pointerEvents = 'none';
 }
