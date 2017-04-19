@@ -96,9 +96,6 @@
                 </div>
             </div>
 
-               
-            
-
         </div>
         <!--/main col-->
     </div>
@@ -120,18 +117,39 @@
 
 
     <script>
+
+        /**
+         * Retrieves from data from local storage and displays content on confirmation page
+         */
+        var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+
+        var selectedImageID;
+
+
         function allowDrop(ev) {
             ev.preventDefault();
         }
 
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);
+            selectedImageID = ev.srcElement.id;
+            console.log(selectedImageID)
         }
 
         function drop(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById(data));
+
+            const td = ev.srcElement;
+            switch(selectedImageID) {
+                case 'first-choice':
+                    dataObject.date1 = td.title;
+                case 'second-choice':
+                    dataObject.date2 = td.title;
+                case 'third-choice':
+                    dataObject.date3 = td.title;
+            }
         }
     </script>
   </body>

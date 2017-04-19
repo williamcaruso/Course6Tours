@@ -89,9 +89,9 @@
                     <p><strong>You have requested:</strong></p>
 
                     <div class="choices">
-                        <p>1st Choice: June 10th, 1-2pm</p>
-                        <p>2nd Choice: June 10th, 11-12pm</p>
-                        <p>3rd Choice: June 10th, 2-3pm</p>
+                        <p>1st Choice: <span id="date1"></span></p>
+                        <p>2nd Choice: <span id="date2"></span></p>
+                        <p>3rd Choice: <span id="date3"></span></p>
                     </div>
                     <br>
                     <p><strong>Special Requests:</strong></p>
@@ -141,6 +141,7 @@
         var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
         var tourPrefs = $("#tourPrefs");
 
+        // Name, email and visitors
         if(dataObject.name) {
             var p = '<p><strong>'+dataObject.name+'</strong></p>';
             $('#tour-name').append(p);
@@ -153,6 +154,8 @@
             var p = '<p>'+dataObject.visitors.join(', ');+'</p>';
             $('#tour-visitors').append(p);
         }
+
+        // Special Requests
         if(dataObject.handicap) {
             var p = document.createElement('p');
             var handicap = document.createTextNode("- Handicap Accessible");
@@ -171,6 +174,13 @@
             p.append(cspref);
             tourPrefs.append(p);
         }
+
+        // Dates
+        if(dataObject.date1) {
+            console.log('yo', $('#date1'));
+            $('#date1').text(dataObject.date1);
+        }
+
         
     </script>
 

@@ -70,6 +70,7 @@ $(document).ready(function() {
                 var slot = thisrow.insertCell(day);
                 slot.id = "td"+row+day;
                 $("#td"+row+day).attr("align","center");
+                $("#td"+row+day).attr("title",days[day-1] + ' @ ' + times[row-2]);
 
                 if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
                     $("#td"+row+day).css("background-color","#D3D3D3")
@@ -160,68 +161,3 @@ $("#submitDates").click(function() {
         console.log("Unable to store form values.");
     }
 });
-
-//
-// /**
-//  * Drag and Drop
-//  */
-// // mouse events arrive here
-// var oldPosition;
-// var selectedCandy;
-// var candyToSwapID;
-// var selectedElement;
-//
-// var neighboringCandyIDs = {};
-//
-// var mouseOffsetX = 0;
-// var mouseOffsetY = 0;
-//
-// $(document).on('mousedown', ".num", function(evt)
-// {
-//     mouseOffsetX = evt.offsetX;
-//     mouseOffsetY = evt.offsetY;
-//     selectedElement = this;
-//     oldPosition = {top: this.style.top, left: this.style.left};
-//     this.style.position = 'absolute';
-//     document.addEventListener ("mousemove" , mouseMove , false);
-//     console.log(this)
-// });
-//
-//
-// function mouseMove (ev) {
-//     console.log(ev.pageX, ev.pageY)
-//     selectedElement.style.left=ev.pageX;
-//     selectedElement.style.top= ev.pageY;
-//     selectedElement.style.zIndex = 1;
-//     selectedElement.style.pointerEvents = 'none';
-//     console.log('moving')
-// }
-//
-// // $(document).on('mouseup', function(evt) {
-// //     if (selectedElement !== null) {
-// //         $('#'+selectedElement.id).animate({
-// //             left: oldPosition.left,
-// //             top: oldPosition.top
-// //         }, 200);
-// //     }
-// //     document.removeEventListener ("mousemove" , mouseMove , false);
-// // });
-//
-// $(document).on('mouseup', "td", function(evt) {
-//
-//     this.style.position = 'relative';
-//
-//     $('#'+selectedElement.id).animate({
-//         left: oldPosition.left,
-//         top: oldPosition.top
-//     }, 200);
-//
-//     selectedElement.style.pointerEvents = 'all';
-//     selectedElement.style.zIndex = 0;
-//     selectedElement = null;
-//     document.removeEventListener ("mousemove" , mouseMove , false);
-//
-//     console.log('up', this)
-//
-// });
-//
