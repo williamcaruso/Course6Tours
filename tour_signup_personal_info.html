@@ -150,9 +150,9 @@
 
     <script>
             var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
-            if (typeof(dataObject) !== 'undefinted') {
-                dataObject.name ? $('#name').val(dataObject.name) : null;
-                dataObject.email ? $('#email').val(dataObject.email) : null;
+            if (typeof(dataObject) !== 'undefinted' || typeof(dataObject) !== 'null') {
+                dataObject.name ? $('#name').val(dataObject.name) : '';
+                dataObject.email ? $('#email').val(dataObject.email) : '';
 
                 for (var i=0; i < dataObject.visitors.length; i++) {
                     $(visitorFormGroup).appendTo("#names");
