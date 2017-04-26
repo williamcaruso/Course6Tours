@@ -93,6 +93,7 @@ $(document).ready(function() {
 
                     if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
                         $("#td"+row+day).css("background-color","#D3D3D3")
+                        // $("#td"+row+day).innerHTML("Unavailable")
                     } else {
                         $("#td"+row+day).attr("ondrop","drop(event)");
                         $("#td"+row+day).attr("ondragover","allowDrop(event)");

@@ -221,7 +221,8 @@ body.modal-open {
 .mdl-card {
     width: 550px;
     min-height: 0;
-    margin: 10px auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .mdl-card__supporting-text {

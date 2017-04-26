@@ -83,13 +83,34 @@
             </div>
             <div class="row mb-3">
                 <div class=" col-xs-12">
-                    <h1>You're all set!</h1>
-                    <br>
-                    <h5>Confirmation Number: 123-456-789-000</h5>
-                    <hr>
+                    <div id="tour-name"></div>
+                    <div id="tour-email"></div>
+                    <strong>Visitors: </strong><div id="tour-visitors" class="choices"></div>
 
-                    <a href="map_location.html" class="btn btn-primary">Find the location of your tour here</a>
-                    <a href="faq.html" class="btn btn-primary">Check out the FAQ</a>
+                    <p><strong>You have requested:</strong></p>
+
+                    <div class="choices">
+                        <p>1st Choice: <strong id="date1"></strong></p>
+                        <p>2nd Choice: <strong id="date2"></strong></p>
+                        <p>3rd Choice: <strong id="date3"></strong></p>
+                    </div>
+                    <br>
+                    <p><strong>Special Requests:</strong></p>
+
+                    <div class="choices" id="tourPrefs">
+                        
+                    </div>
+                    <p>If later you'd like to make any changes please contact Anne Hunter at <a
+                        href="mailto:anneh@mit.edu">anneh@mit.edu</a>.
+                    </p>
+
+
+                </div>
+                <div class='forwardBack'>
+                        <a class="BackButton btn btn-primary" href="tour_signup_schedul.html">Back</a>
+
+                        <a class="ForwardButton btn btn-success" href="email_popup.html" target="_blank">
+                            Submit&nbsp;<i class="fa fa-check"></i></a>
                 </div>
             </div>
             <!--/row-->
