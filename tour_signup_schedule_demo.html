@@ -76,7 +76,102 @@
 
             </div>
             <div class="row mb-3">
-                <div id='full-calendar'></div>
+                <div style="margin-left: auto;margin-right: auto;">
+
+                    <div class="calendar">
+
+                        <header>
+
+                            <h2>September</h2>
+
+                            <a class="btn-prev fontawesome-angle-left" href="#"></a>
+                            <a class="btn-next fontawesome-angle-right" href="#"></a>
+
+                        </header>
+
+                        <table>
+
+                            <thead>
+
+                            <tr>
+
+                                <td>Mo</td>
+                                <td>Tu</td>
+                                <td>We</td>
+                                <td>Th</td>
+                                <td>Fr</td>
+                                <td>Sa</td>
+                                <td>Su</td>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+                                <td class="prev-month">26</td>
+                                <td class="prev-month">27</td>
+                                <td class="prev-month">28</td>
+                                <td class="prev-month">29</td>
+                                <td class="prev-month">30</td>
+                                <td class="prev-month">31</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td class="event">10</td>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>13</td>
+                                <td>14</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>17</td>
+                                <td>18</td>
+                                <td>19</td>
+                                <td>20</td>
+                                <td class="event">21</td>
+                                <td>22</td>
+                            </tr>
+
+                            <tr>
+                                <td class="current-day event">23</td>
+                                <td>24</td>
+                                <td>25</td>
+                                <td>26</td>
+                                <td>27</td>
+                                <td>28</td>
+                                <td>29</td>
+                            </tr>
+                            <tr>
+                                <td>30</td>
+                                <td class="next-month">1</td>
+                                <td class="next-month">2</td>
+                                <td class="next-month">3</td>
+                                <td class="next-month">4</td>
+                                <td class="next-month">5</td>
+                                <td class="next-month">6</td>
+                            </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div> <!-- end calendar -->
+
+                </div>
 
                 <div class='forwardBack'>
                     <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
@@ -102,26 +197,6 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.1/fullcalendar.css" />
-
-    <script src="js/scripts.js">
-        $(document).ready(function() {
-
-            // page is now ready, initialize the calendar...
-
-            $('#full-calendar').fullCalendar({
-                // put your options and callbacks here
-                dayClick: function() {
-                    alert('a day has been clicked!');
-                }
-            })
-
-        });
-    </script>
-
 
   </body>
 </html>
