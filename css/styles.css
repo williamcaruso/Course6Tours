@@ -369,8 +369,8 @@ body.modal-open {
 }
 
 
-.active {
-    background-color: #025aa5;
+.nav-item .active {
+    background-color: #ec971f;
 }
 
 /* Calendar CSS */
