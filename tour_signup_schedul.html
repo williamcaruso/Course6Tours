@@ -80,23 +80,11 @@
                     </div>
                 </div>
             </div>
-            <h6 style="float:right">Drag and Drop your dates</h6>
-            <br>
-            <br>
             <div class="row mb-3">
-                <div class=" col-md-10" style='height:400px'>
+                <div class=" col-md-12" style='height:400px'>
                     <table id="calendar" border=1></table>
                 </div>
-                <div class=" col-md-2">
-                    <table id="choices" frame="box" rules="none">
-                        <tr><td><center><img class="num" id="first-choice" src="graphics/1.png" draggable="true"
-                                             ondragstart="drag(event)"></center></td></tr>
-                        <tr><td><center><img class="num" id="second-choice" src="graphics/2.png" draggable="true"
-                                             ondragstart="drag(event)"></center></td></tr>
-                        <tr><td><center><img class="num" id="third-choice" src="graphics/3.png" draggable="true"
-                                             ondragstart="drag(event)"></center></td></tr>
-                    </table>
-                </div>
+                
                 <div class='forwardBack'>
                     <a class="BackButton btn btn-primary" href="tour_signup_personal_info.html">Back</a>
 
@@ -140,11 +128,14 @@
                 '<img class="num" id="second-choice" src="graphics/2.png" draggable="true" ondragstart="drag(event)">';
             const img3 =
                 '<img class="num" id="third-choice" src="graphics/3.png" draggable="true" ondragstart="drag(event)">';
+            
+            /*
             if (dataObject.date1 && dataObject.date1_id) {
                 $('#first-choice').remove();
                 var ele = document.getElementById(dataObject.date1_id);
                 ele.innerHTML =img1;
             }
+
             if (dataObject.date2 && dataObject.date2_id) {
                 $('#second-choice').remove();
                 var ele = document.getElementById(dataObject.date2_id);
@@ -155,6 +146,7 @@
                 var ele = document.getElementById(dataObject.date3_id);
                 ele.innerHTML =img3;
             }
+            */
         }, 10);
 
 

@@ -527,3 +527,7 @@ table {
 .btn-next {
     right: 6em;
 }
+
+.selected-day {
+    background-color: #42f483;
+}

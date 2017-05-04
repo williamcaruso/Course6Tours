@@ -7,9 +7,7 @@ var personal_info_model = {
     name: '',
     email: '',
     visitors: [],
-    date1: '',
-    date2: '',
-    date3: '',
+    dates: [],
     date1_id: '',
     date2_id: '',
     date3_id: '',
@@ -25,7 +23,7 @@ const visitorFormGroup = '<div class="form-group row"> <label for="visitor" clas
 
 // Times, days and reserved spots for the calendar
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
-const days = ["Mon 8", "Tues 9", "Wed 10", "Thurs 11", "Fri 12"];
+const weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri"];
 var reserved = ["td33","td43","td63"];
 
 
@@ -59,72 +57,219 @@ $(document).ready(function() {
      *  Calendar setup with random times marked as not available
      *  https://www.w3schools.com/howto/howto_css_calendar.asp
      */
-    const table=document.getElementById("calendar");
+    const table = document.getElementById("calendar");
     if (table) {
 
         var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
         reserved=[];
 
-        if (dataObject) {
-            if (dataObject.date1 && dataObject.date1_id) {
-                reserved.push(dataObject.date1_id);
-            }
-            if (dataObject.date2 && dataObject.date2_id) {
-                reserved.push(dataObject.date2_id);
-            }
-            if (dataObject.date3 && dataObject.date3_id) {
-                reserved.push(dataObject.date3_id);
-            }
-        } else {
-            reserved = ["td33","td43","td63"];
-        }
+        var today = new Date();
+        var dd = today.getDate();
+        var weekDay = today.getDay();
+        var mm = today.getMonth();
+        var yyyy = today.getFullYear();
 
+        var monthString = getMonthString(mm);
+        var oneDay = 24*60*60*1000;
 
         for(var row=0;row<9;row++){
             var thisrow = table.insertRow(row);
             thisrow.id ="row"+row;
+            // Days
             if(row > 1) {
                 for(var day=0;day<6;day++){
+                    var thisDate = new Date(today.getTime() + (day - weekDay)*oneDay);
                     var slot = thisrow.insertCell(day);
                     slot.id = "td"+row+day;
                     $("#td"+row+day).attr("align","center");
                     $("#td"+row+day).attr("class","slot");
-                    $("#td"+row+day).attr("title",days[day-1] + ' June ' +  ' @ ' + times[row-2]);
+                    //$("#td"+row+day).attr("title",days[day-1] + ' June ' +  ' @ ' + times[row-2]);
 
                     if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
-                        $("#td"+row+day).css("background-color","#D3D3D3")
-                        // $("#td"+row+day).innerHTML("Unavailable")
+                        $("#td"+row+day).css("background-color","#D3D3D3");
                     } else {
                         $("#td"+row+day).attr("ondrop","drop(event)");
                         $("#td"+row+day).attr("ondragover","allowDrop(event)");
+                        if(day > 0) {
+                            $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                            $("#td"+row+day).data("meta-selected",false);
+                        }
                     }
+                    // Times
                     if(day === 0){
                         document.getElementById('td'+row+'0').innerHTML = times[row-2];
                     }
                 }
             }
             else{
+                // Month Tag / Title
                 if(row === 0){
                     var bar = thisrow.insertCell();
                     bar.id = "bar"+row;
                     $("#bar"+row).attr("align","center");
                     $("#bar"+row).attr("colspan","6");
-                    document.getElementById('bar0').innerHTML = "< June >";
+                    /*
+                    document.getElementById('bar0').innerHTML = "< " + monthString +" >";
+                    */
                 }
+                // Day Tags (ex. Mon 8)
                 if(row === 1){
                     for(day=0;day<6;day++){
                         slot = thisrow.insertCell(day);
                         slot.id = "td1" + day;
                         $("#td1"+day).attr("align","center");
+                        /*
                         if(day > 0){
-                            document.getElementById('td1'+day).innerHTML = days[day-1];
+                            document.getElementById('td1'+day).innerHTML = weekdays[day-1];
                         }
+                        */
+                        
                     }
                 }
+                
             }
         }
+        loadCalendar(today);
     }
 });
+
+const DATE_KEY = 'cell-date-object';
+
+function loadCalendar(day) {
+    var oneDay = 24*60*60*1000;
+
+    var monday = new Date(day.getTime() + (1 - day.getDay())*oneDay);
+    var daysThisWeek = []
+
+    // Set Month String
+    var monthString = getMonthString(monday.getMonth()) + " " + monday.getFullYear();
+    document.getElementById('bar0').innerHTML = monthString;
+    
+    // Set WeekDays
+    for(var day = 1; day<6; day++) {
+        var thisDay = new Date(monday.getTime() + (day-1)*oneDay);
+        var dd = thisDay.getDate();
+        var mm = thisDay.getMonth();
+        var month = getMonthString(mm);
+        daysThisWeek.push([month, dd, mm]);
+        var weekdayString = weekdays[day-1] + " " + dd;
+        document.getElementById('td1'+day).innerHTML = weekdayString;
+    }
+
+    // Set meta-data to cells
+    for(var day = 1; day<6; day++) {
+        thisDay = daysThisWeek[day-1];
+        
+        for(var row = 2; row < 9; row++) {
+            var k = thisDay[2] +""+ thisDay[1] +""+ (row-2);
+            var dateObj = {
+                'month' : thisDay[0],
+                'day'   : thisDay[1],
+                'time'  : '',
+                'sort-key' : k
+            };
+            dateObj['time'] = times[row-2];
+            $("#td"+row+day).data(DATE_KEY, dateObj);
+        }
+    }
+}
+
+/*
+TODO:
+    make date switching arrows work
+    Block dates before current date
+*/
+
+function getMonthString(mm) {
+    switch(mm) {
+        case 0:
+            return "January"
+            break;
+        case 1:
+            return "February"
+            break;
+        case 2:
+            return "March"
+            break;
+        case 3:
+            return "April"
+            break;
+        case 4:
+            return "May"
+            break;
+        case 5:
+            return "June"
+            break;
+        case 6:
+            return "July"
+            break;
+        case 7:
+            return "August"
+            break;
+        case 8:
+            return "September"
+            break;
+        case 9:
+            return "October"
+            break;
+        case 10:
+            return "November"
+            break;
+        case 11:
+        default:
+            return "December"
+            break;
+    }
+}
+
+function addSlotToDataObject(slot) {
+    var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+    var doDays = dataObject.dates;
+    doDays.push(slot);
+    dates = sortByKey(doDays, 'sort-key');
+    dataObject.dates = dates;
+    localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+}
+
+function removeSlotFromDataObject(slot) {
+    var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+    var doDays = dataObject['dates'];
+    doDays.push(slot);
+    dates = removeByKeyId(doDays, 'sort-key', slot['sort-key']);
+    dataObject.dates = dates;
+    localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+}
+
+function toggleAvailability(event) {
+    var cell = $("#"+event.target.id);
+    //var selected = cell.attributes["meta-selected"].value;
+    var selected = cell.data("meta-selected");
+    if(!selected) {
+        cell.data("meta-selected", true);;
+        cell.attr("class", "slot selected-day");
+        addSlotToDataObject(cell.data(DATE_KEY));
+    } else {
+        cell.data("meta-selected", false);
+        cell.attr("class", "slot");
+        removeSlotFromDataObject(cell.data(DATE_KEY));
+    }
+}
+
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
+// Assumes unique keys
+function removeByKeyId(array, key, id) {
+    for(var i = 0; i<array.length; i++) {
+        if(array[i][key] == id) {
+            return array.splice(i, 1);
+        }
+    }
+}
 
 /**
  * Used to Append more textboxes to a page
