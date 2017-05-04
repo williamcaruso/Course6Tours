@@ -531,3 +531,7 @@ table {
 .selected-day {
     background-color: #42f483;
 }
+
+.unav-day {
+    background-color: #CCCCCC;
+}

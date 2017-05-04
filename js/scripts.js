@@ -25,7 +25,8 @@ const visitorFormGroup = '<div class="form-group row"> <label for="visitor" clas
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
 const weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri"];
 var reserved = ["td33","td43","td63"];
-
+var calendarLoadDate = new Date();
+const oneDay = 24*60*60*1000;
 
 /**
  * Runs when the document loads
@@ -63,36 +64,26 @@ $(document).ready(function() {
         var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
         reserved=[];
 
-        var today = new Date();
-        var dd = today.getDate();
-        var weekDay = today.getDay();
-        var mm = today.getMonth();
-        var yyyy = today.getFullYear();
-
-        var monthString = getMonthString(mm);
-        var oneDay = 24*60*60*1000;
-
         for(var row=0;row<9;row++){
             var thisrow = table.insertRow(row);
             thisrow.id ="row"+row;
-            // Days
+            
+            // Individual Time Slots
             if(row > 1) {
                 for(var day=0;day<6;day++){
-                    var thisDate = new Date(today.getTime() + (day - weekDay)*oneDay);
+                    // create table cell
                     var slot = thisrow.insertCell(day);
                     slot.id = "td"+row+day;
                     $("#td"+row+day).attr("align","center");
                     $("#td"+row+day).attr("class","slot");
-                    //$("#td"+row+day).attr("title",days[day-1] + ' June ' +  ' @ ' + times[row-2]);
 
-                    if(Math.random() < 0.3 && day > 0 && reserved.indexOf("td"+row+day) === -1){
-                        $("#td"+row+day).css("background-color","#D3D3D3");
+                    if((Math.random() < 0.25 && day > 0) || reserved.indexOf("td"+row+day) != -1){
+                        $("#td"+row+day).attr("class","unav-day");
                     } else {
                         $("#td"+row+day).attr("ondrop","drop(event)");
                         $("#td"+row+day).attr("ondragover","allowDrop(event)");
                         if(day > 0) {
                             $("#td"+row+day).attr("onclick","toggleAvailability(event)");
-                            $("#td"+row+day).data("meta-selected",false);
                         }
                     }
                     // Times
@@ -102,15 +93,28 @@ $(document).ready(function() {
                 }
             }
             else{
-                // Month Tag / Title
+                // Month and arrow Buttons
                 if(row === 0){
+                    var lastWkBtnCell = thisrow.insertCell();
+                    lastWkBtnCell.id = "lastWkBtnCell";
+
                     var bar = thisrow.insertCell();
                     bar.id = "bar"+row;
                     $("#bar"+row).attr("align","center");
-                    $("#bar"+row).attr("colspan","6");
-                    /*
-                    document.getElementById('bar0').innerHTML = "< " + monthString +" >";
-                    */
+                    $("#bar"+row).attr("colspan","4");
+
+                    var nextWkBtnCell = thisrow.insertCell();
+                    nextWkBtnCell.id = "nextWkBtnCell";
+
+                    $("#lastWkBtnCell").attr("onclick", "lastWeek()");
+                    $("#lastWkBtnCell").attr("align", "center");
+                    $("#nextWkBtnCell").attr("onclick", "nextWeek()");
+                    $("#nextWkBtnCell").attr("align", "center");
+
+                    document.getElementById("lastWkBtnCell").innerHTML = "<";
+                    document.getElementById("nextWkBtnCell").innerHTML = ">";
+
+
                 }
                 // Day Tags (ex. Mon 8)
                 if(row === 1){
@@ -118,26 +122,21 @@ $(document).ready(function() {
                         slot = thisrow.insertCell(day);
                         slot.id = "td1" + day;
                         $("#td1"+day).attr("align","center");
-                        /*
-                        if(day > 0){
-                            document.getElementById('td1'+day).innerHTML = weekdays[day-1];
-                        }
-                        */
-                        
                     }
                 }
                 
             }
         }
-        loadCalendar(today);
+        // Fill up calendar for todays week.
+        loadCalendar(new Date());
     }
 });
 
 const DATE_KEY = 'cell-date-object';
 
 function loadCalendar(day) {
-    var oneDay = 24*60*60*1000;
-
+    var retrievedObject = JSON.parse(localStorage.getItem('personal_info_model'));
+    var today = new Date();
     var monday = new Date(day.getTime() + (1 - day.getDay())*oneDay);
     var daysThisWeek = []
 
@@ -154,31 +153,62 @@ function loadCalendar(day) {
         daysThisWeek.push([month, dd, mm]);
         var weekdayString = weekdays[day-1] + " " + dd;
         document.getElementById('td1'+day).innerHTML = weekdayString;
-    }
 
-    // Set meta-data to cells
-    for(var day = 1; day<6; day++) {
-        thisDay = daysThisWeek[day-1];
-        
+        var isBeforeToday = (thisDay.getTime()+1000 < today.getTime());
+
+        // Fill in cells
         for(var row = 2; row < 9; row++) {
-            var k = thisDay[2] +""+ thisDay[1] +""+ (row-2);
+            // black out some random days.
+            var unav = isBeforeToday || (Math.random() < 0.1);
+            
+            // bind data to DOM object
+            var k = mm +""+ dd +""+ (row-2);
             var dateObj = {
-                'month' : thisDay[0],
-                'day'   : thisDay[1],
+                'month' : month,
+                'day'   : dd,
                 'time'  : '',
                 'sort-key' : k
             };
             dateObj['time'] = times[row-2];
             $("#td"+row+day).data(DATE_KEY, dateObj);
-        }
+
+            // Set Attributes for different cell types
+            if(containsByKey(retrievedObject.dates, 'sort-key', k)) {
+                // cell has already been selected, according to saved data
+                $("#td"+row+day).attr("class", "slot selected-day");
+                $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).data("meta-selected",true);
+            }
+            else if(unav) {
+                // Cell is unavailable
+                $("#td"+row+day).attr("class", "unav-day");
+                $("#td"+row+day).attr("onclick", "");
+                $("#td"+row+day).data("meta-selected",false);
+            } 
+            else { 
+                // Normal unselected, available cell
+                $("#td"+row+day).attr("class", "slot");
+                $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).data("meta-selected",false);
+            }
+         }
     }
 }
 
 /*
 TODO:
     make date switching arrows work
-    Block dates before current date
 */
+
+function nextWeek() {
+    calendarLoadDate = new Date(calendarLoadDate.getTime() + 7*oneDay);
+    loadCalendar(calendarLoadDate);
+}
+
+function lastWeek() {
+    calendarLoadDate = new Date(calendarLoadDate.getTime() - 7*oneDay);
+    loadCalendar(calendarLoadDate);
+}
 
 function getMonthString(mm) {
     switch(mm) {
@@ -233,9 +263,11 @@ function addSlotToDataObject(slot) {
 
 function removeSlotFromDataObject(slot) {
     var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
-    var doDays = dataObject['dates'];
-    doDays.push(slot);
+    var doDays = dataObject.dates;
     dates = removeByKeyId(doDays, 'sort-key', slot['sort-key']);
+    if(!dates) {
+        dates = [];
+    }
     dataObject.dates = dates;
     localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
 }
@@ -266,9 +298,19 @@ function sortByKey(array, key) {
 function removeByKeyId(array, key, id) {
     for(var i = 0; i<array.length; i++) {
         if(array[i][key] == id) {
-            return array.splice(i, 1);
+            array.splice(i, 1);
+            return array;
         }
     }
+}
+
+function containsByKey(array, key, id) {
+    for(var i = 0; i<array.length; i++) {
+        if(array[i][key] == id) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
