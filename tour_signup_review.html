@@ -46,7 +46,7 @@
             <div class="mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
                     <div class="mdl-stepper-horizontal-alternative active-step">
-                        <div class="mdl-stepper-step active-step">
+                        <div class="mdl-stepper-step">
                             <a href="tour_signup_personal_info.html" class='btn'>
                                 <div class="mdl-stepper-circle"><span>1</span></div>
                                 <div class="mdl-stepper-title">Personal Info</div>
@@ -62,7 +62,7 @@
                                 <div class="mdl-stepper-bar-right"></div>
                             </a>
                         </div>
-                        <div class="mdl-stepper-step">
+                        <div class="mdl-stepper-step active-step">
                             <a href="tour_signup_review.html" class= 'btn'>
                                 <div class="mdl-stepper-circle"><span>3</span></div>
                                 <div class="mdl-stepper-title">Review</div>
@@ -85,14 +85,16 @@
                 <div class=" col-xs-12">
                     <div id="tour-name"></div>
                     <div id="tour-email"></div>
+                    <h3> Please review the following information before submitting your tour request!</h3>
+                    <p></p>
                     <strong>Visitors: </strong><div id="tour-visitors" class="choices"></div>
 
-                    <p><strong>You have requested:</strong></p>
+                    <p><strong>Times you are available for a tour:</strong></p>
 
                     <div class="choices">
-                        <p>1st Choice: <strong id="date1"></strong></p>
-                        <p>2nd Choice: <strong id="date2"></strong></p>
-                        <p>3rd Choice: <strong id="date3"></strong></p>
+                        <p>1st Time: <strong id="date1"></strong></p>
+                        <p>2nd Time: <strong id="date2"></strong></p>
+                        <p>3rd Time: <strong id="date3"></strong></p>
                     </div>
                     <br>
                     <p><strong>Special Requests:</strong></p>
@@ -109,13 +111,14 @@
                 <div class='forwardBack'>
                         <a class="BackButton btn btn-primary" href="tour_signup_schedul.html">Back</a>
 
-                        <a class="ForwardButton btn btn-success" href="email_popup.html" target="_blank">
+                        <a class="ForwardButton btn btn-success" href="tour_signup_confirm.html">
                             Submit&nbsp;<i class="fa fa-check"></i></a>
                 </div>
             </div>
             <!--/row-->
 
-
+            <br>
+            <hr>
         </div>
         <!--/main col-->
     </div>
