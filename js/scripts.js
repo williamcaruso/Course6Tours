@@ -3,6 +3,8 @@
  */
 // Holds the data in the form for scheduling a tour
 // This object is loaded and retrieved from local storage
+
+const dataVersion = 0.1;
 var personal_info_model = {
     name: '',
     email: '',
@@ -14,6 +16,7 @@ var personal_info_model = {
     handicap:false,
     prefer_ee:false,
     prefer_cs:false, 
+    version: dataVersion,
 };
 
 // Bootstrap Form Group for adding a visitor
@@ -41,6 +44,10 @@ $(document).ready(function() {
     var retrievedObject = localStorage.getItem('personal_info_model');
     if (typeof(retrievedObject) === "undefined" || retrievedObject === null) {
         // If the object does not exist, create one
+        localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
+    }
+    if(!retrievedObject.hasOwnProperty('version') || retrievedObject.version != dataVersion) {
+        // if data model is old, create a new one
         localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
     }
 
