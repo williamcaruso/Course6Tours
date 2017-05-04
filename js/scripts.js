@@ -4,7 +4,7 @@
 // Holds the data in the form for scheduling a tour
 // This object is loaded and retrieved from local storage
 
-const dataVersion = 0.1;
+const dataVersion = "0.1";
 var personal_info_model = {
     name: '',
     email: '',
@@ -46,8 +46,12 @@ $(document).ready(function() {
         // If the object does not exist, create one
         localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
     }
-    if(!retrievedObject.hasOwnProperty('version') || retrievedObject.version != dataVersion) {
-        // if data model is old, create a new one
+    // if data model is old, create a new one
+    if(!JSON.parse(retrievedObject).hasOwnProperty("version")){
+        console.log("Reseting object without version");
+        localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
+    } else if(JSON.parse(retrievedObject).version != dataVersion) {
+        console.log("Reseting object with old version");
         localStorage.setItem('personal_info_model', JSON.stringify(personal_info_model));
     }
 
