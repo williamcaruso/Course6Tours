@@ -307,9 +307,10 @@ function toggleAvailability(event) {
 }
 
 function cellMouseEnter(event) {
+    var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
     var cell = $("#"+event.target.id);
     var selected = cell.data("meta-selected");
-    if(!selected) {
+    if(!selected && dataObj.dates.length < 3) {
         cell.attr("class", "slot hover-day");
     }
 }
