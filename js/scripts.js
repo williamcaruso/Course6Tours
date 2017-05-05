@@ -188,6 +188,8 @@ function loadCalendar(day) {
                 // cell has already been selected, according to saved data
                 $("#td"+row+day).attr("class", "slot selected-day");
                 $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
+                $("#td"+row+day).attr("onmouseexit", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",true);
             }
             else if(unav) {
@@ -200,6 +202,8 @@ function loadCalendar(day) {
                 // Normal unselected, available cell
                 $("#td"+row+day).attr("class", "slot");
                 $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
+                $("#td"+row+day).attr("onmouseleave", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",false);
             }
          }
@@ -285,14 +289,9 @@ function removeSlotFromDataObject(slot) {
 
 function toggleAvailability(event) {
     var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
-
-
-
     var cell = $("#"+event.target.id);
     //var selected = cell.attributes["meta-selected"].value;
     var selected = cell.data("meta-selected");
-
-
     if(!selected) {
         if(dataObj.dates.length >= 3) {
           return;
@@ -304,6 +303,22 @@ function toggleAvailability(event) {
         cell.data("meta-selected", false);
         cell.attr("class", "slot");
         removeSlotFromDataObject(cell.data(DATE_KEY));
+    }
+}
+
+function cellMouseEnter(event) {
+    var cell = $("#"+event.target.id);
+    var selected = cell.data("meta-selected");
+    if(!selected) {
+        cell.attr("class", "slot hover-day");
+    }
+}
+
+function cellMouseExit(event) {
+    var cell = $("#"+event.target.id);
+    var selected = cell.data("meta-selected");
+    if(!selected) {
+        cell.attr("class", "slot");
     }
 }
 

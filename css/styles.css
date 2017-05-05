@@ -535,3 +535,7 @@ table {
 .unav-day {
     background-color: #CCCCCC;
 }
+
+.hover-day {
+    background-color: #ccffde;
+}
