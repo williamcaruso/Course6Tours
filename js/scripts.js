@@ -284,10 +284,19 @@ function removeSlotFromDataObject(slot) {
 }
 
 function toggleAvailability(event) {
+    var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
+
+
+
     var cell = $("#"+event.target.id);
     //var selected = cell.attributes["meta-selected"].value;
     var selected = cell.data("meta-selected");
+
+
     if(!selected) {
+        if(dataObj.dates.length >= 3) {
+          return;
+        }
         cell.data("meta-selected", true);;
         cell.attr("class", "slot selected-day");
         addSlotToDataObject(cell.data(DATE_KEY));
