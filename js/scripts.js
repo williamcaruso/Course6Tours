@@ -122,9 +122,14 @@ $(document).ready(function() {
                     $("#nextWkBtnCell").attr("onclick", "nextWeek()");
                     $("#nextWkBtnCell").attr("align", "center");
 
-                    document.getElementById("lastWkBtnCell").innerHTML = "<";
-                    document.getElementById("nextWkBtnCell").innerHTML = ">";
+                    var leftArrow = document.createElement('img');
+                    leftArrow.src = 'graphics/Advance-50.png';
+                    document.getElementById("lastWkBtnCell").appendChild(leftArrow);
+                    document.getElementById("lastWkBtnCell").className+= 'rotateimg180';
 
+                    var rtArrow = document.createElement('img');
+                    rtArrow.src = 'graphics/Advance-50.png';
+                    document.getElementById("nextWkBtnCell").appendChild(rtArrow);
 
                 }
                 // Day Tags (ex. Mon 8)
