@@ -126,10 +126,12 @@ $(document).ready(function() {
                     leftArrow.src = 'graphics/Advance-50.png';
                     document.getElementById("lastWkBtnCell").appendChild(leftArrow);
                     document.getElementById("lastWkBtnCell").className+= 'rotateimg180';
+                    $('#lastWkBtnCell').css("cursor", "pointer");
 
                     var rtArrow = document.createElement('img');
                     rtArrow.src = 'graphics/Advance-50.png';
                     document.getElementById("nextWkBtnCell").appendChild(rtArrow);
+                    $('#nextWkBtnCell').css("cursor", "pointer");
 
                 }
                 // Day Tags (ex. Mon 8)
