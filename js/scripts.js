@@ -24,9 +24,7 @@ var personal_info_model = {
 };
 
 // Bootstrap Form Group for adding a visitor
-const visitorFormGroup = '<div class="form-group row"> <label for="visitor" class="col-2' +
-    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +
-    ' name="visitor" placeholder="e.g. Alyssa Hacker"size=50> </div> </div>';
+var extraVisitorCount = 0;
 
 // Times, days and reserved spots for the calendar
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
@@ -365,8 +363,34 @@ function containsByKey(array, key, id) {
  * http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
  */
 $("#add_visitor").click(function() {
+    var visitorFormGroup = '<div id=' + extraVisitorCount + ' class="form-group row"> <label for="visitor" class="col-2' +
+    ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +
+    ' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + extraVisitorCount + '"" type="button"> Remove </button> </div> </div>';
     $(visitorFormGroup).appendTo("#names");
+    extraVisitorCount += 1;
 });
+
+$(document).click(function(event) {
+    var text = event.target.id;
+    console.log(text)
+});
+
+/**
+    Used to remove textboxes for extra visitors
+*/
+
+$("#names").on('click', "button[name='remove']", function () {
+    //remove the input from the UI
+    button_id = this.id;
+    div_id = button_id.substring(6); //strip off the remove prefix at the beginning
+    $('#'+div_id).remove();
+    //remove the visitor from the model
+    var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+    var visitors = document.getElementsByClassName("extraVisitor");
+    dataObject.visitors[div_id] = "removed"
+    localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+})
+
 
 /**
  * Called when the submitPersonalInfo Button is clicked

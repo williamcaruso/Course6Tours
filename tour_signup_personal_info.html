@@ -31,7 +31,7 @@
     <div class="row row-offcanvas row-offcanvas-left">
         <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav flex-column pl-1">
-
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="map_location.html">Campus Map</a></li>
                 <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact_page.html">Contact</a></li>
@@ -165,13 +165,17 @@
                 dataObject.name ? $('#name').val(dataObject.name) : '';
                 dataObject.email ? $('#email').val(dataObject.email) : '';
 
-                for (var i=0; i < dataObject.visitors.length; i++) {
+                 extraVisitorCount = 0
+                 for (var i=0; i < dataObject.visitors.length; i++) {
+
+                     var visitorFormGroup = '<div id=' + extraVisitorCount + ' class="form-group row"> <label for="visitor" class="col-2' +' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + extraVisitorCount + '"" type="button"> Remove </button> </div> </div>';
                     $(visitorFormGroup).appendTo("#names");
-                }
+                     extraVisitorCount += 1;
+                 }
 
                 var visitors = document.getElementsByClassName("extraVisitor");
                 for(var j=0; j<visitors.length; j++) {
-                    visitors[j].value =dataObject.visitors[j];
+                        visitors[j].value =dataObject.visitors[j];
                 }
 
                 if (dataObject.handicap) {
@@ -189,7 +193,6 @@
                 console.log(dataObject)
                 if(dataObject.visited_page_1){
                     d = document.getElementById("info")
-                    console.log(d)
                     d.className = "btn"
                 }
                 if(dataObject.visited_page_2){
