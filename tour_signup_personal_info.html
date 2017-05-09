@@ -161,21 +161,29 @@
     <script>
             var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
             if (typeof(dataObject) !== 'undefinted' || typeof(dataObject) !== 'null') {
-                console.log(dataObject);
                 dataObject.name ? $('#name').val(dataObject.name) : '';
                 dataObject.email ? $('#email').val(dataObject.email) : '';
 
-                 extraVisitorCount = 0
                  for (var i=0; i < dataObject.visitors.length; i++) {
 
-                     var visitorFormGroup = '<div id=' + extraVisitorCount + ' class="form-group row"> <label for="visitor" class="col-2' +' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + extraVisitorCount + '"" type="button"> Remove </button> </div> </div>';
-                    $(visitorFormGroup).appendTo("#names");
-                     extraVisitorCount += 1;
+                     if(dataObject.visitors[i] != "removed"){
+                        console.log(i)
+                        var visitorFormGroup = '<div id=' + i + ' class="form-group row"> <label for="visitor" class="col-2' +' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + i + '"" type="button"> Remove </button> </div> </div>';
+                        $(visitorFormGroup).appendTo("#names");
+                     
+
+                     }
                  }
 
                 var visitors = document.getElementsByClassName("extraVisitor");
-                for(var j=0; j<visitors.length; j++) {
-                        visitors[j].value =dataObject.visitors[j];
+
+                entered = 0
+                for(var j=0; j<dataObject.visitors.length; j++) {
+                        name = dataObject.visitors[j]
+                        if( name != "removed"){
+                        visitors[entered].value = name;
+                        entered += 1
+                    }
                 }
 
                 if (dataObject.handicap) {
