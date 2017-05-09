@@ -31,6 +31,7 @@ const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
 const weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri"];
 var reserved = ["td33","td43","td63"];
 var calendarLoadDate = new Date();
+const today = new Date();
 const oneDay = 24*60*60*1000;
 
 /**
@@ -148,7 +149,7 @@ $(document).ready(function() {
             }
         }
         // Fill up calendar for todays week.
-        loadCalendar(new Date());
+        loadCalendar(today);
     }
 });
 
@@ -156,7 +157,6 @@ const DATE_KEY = 'cell-date-object';
 
 function loadCalendar(day) {
     var retrievedObject = JSON.parse(localStorage.getItem('personal_info_model'));
-    var today = new Date();
     var monday = new Date(day.getTime() + (1 - day.getDay())*oneDay);
     var daysThisWeek = []
 
@@ -186,35 +186,37 @@ function loadCalendar(day) {
             var dateObj = {
                 'month' : month,
                 'day'   : dd,
-                'time'  : '',
+                'time'  : times[row-2],
                 'sort-key' : k
             };
-            dateObj['time'] = times[row-2];
+            //dateObj['time'] = times[row-2];
             $("#td"+row+day).data(DATE_KEY, dateObj);
 
             // Set Attributes for different cell types
             if(containsByKey(retrievedObject.dates, 'sort-key', k)) {
                 // cell has already been selected, according to saved data
                 $("#td"+row+day).attr("class", "slot selected-day");
-                $("#td"+row+day).attr("onclick","toggleAvailability(event)");
-                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
-                $("#td"+row+day).attr("onmouseexit", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",true);
+                $("#td"+row+day).data("available",true);
             }
             else if(unav) {
                 // Cell is unavailable
                 $("#td"+row+day).attr("class", "unav-day");
                 $("#td"+row+day).attr("onclick", "");
                 $("#td"+row+day).data("meta-selected",false);
+                $("#td"+row+day).data("available",false);
             } 
             else { 
                 // Normal unselected, available cell
                 $("#td"+row+day).attr("class", "slot");
                 $("#td"+row+day).attr("onclick","toggleAvailability(event)");
-                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
-                $("#td"+row+day).attr("onmouseleave", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",false);
+                $("#td"+row+day).data("available",true);
             }
+
+            $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
+            $("#td"+row+day).attr("onmouseleave", "cellMouseExit(event)");
+            $("#td"+row+day).attr("onclick","toggleAvailability(event)");
          }
     }
 }
@@ -301,11 +303,15 @@ function toggleAvailability(event) {
     var cell = $("#"+event.target.id);
     //var selected = cell.attributes["meta-selected"].value;
     var selected = cell.data("meta-selected");
+    var available = cell.data("available");
+    if(!available) {
+        return;
+    }
     if(!selected) {
         if(dataObj.dates.length >= 3) {
           return;
         }
-        cell.data("meta-selected", true);;
+        cell.data("meta-selected", true);
         cell.attr("class", "slot selected-day");
         addSlotToDataObject(cell.data(DATE_KEY));
     } else {
@@ -319,7 +325,8 @@ function cellMouseEnter(event) {
     var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
     var cell = $("#"+event.target.id);
     var selected = cell.data("meta-selected");
-    if(!selected && dataObj.dates.length < 3) {
+    var available = cell.data("available");
+    if(!selected && dataObj.dates.length < 3 && available) {
         cell.attr("class", "slot hover-day");
     }
 }
@@ -327,7 +334,8 @@ function cellMouseEnter(event) {
 function cellMouseExit(event) {
     var cell = $("#"+event.target.id);
     var selected = cell.data("meta-selected");
-    if(!selected) {
+    var available = cell.data("available");
+    if(!selected && available) {
         cell.attr("class", "slot");
     }
 }
@@ -372,7 +380,7 @@ $("#add_visitor").click(function() {
 
 $(document).click(function(event) {
     var text = event.target.id;
-    console.log(text)
+    //console.log(text)
 });
 
 /**
