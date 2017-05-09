@@ -47,7 +47,7 @@
                 <div class="mdl-card__supporting-text">
                     <div class="mdl-stepper-horizontal-alternative active-step">
                         <div class="mdl-stepper-step">
-                            <a href="tour_signup_personal_info.html" class='btn'>
+                            <a href="tour_signup_personal_info.html" id="info" class='btn disabled'>
                                 <div class="mdl-stepper-circle"><span>1</span></div>
                                 <div class="mdl-stepper-title">Personal Info</div>
                                 <div class="mdl-stepper-bar-left"></div>
@@ -55,7 +55,7 @@
                             </a>
                         </div>
                         <div class="mdl-stepper-step">
-                            <a href = "tour_signup_schedul.html" class='btn'>
+                            <a href = "tour_signup_schedul.html" id="sched" class='btn disabled'>
                                 <div class="mdl-stepper-circle"><span>2</span></div>
                                 <div class="mdl-stepper-title">Pick Your Dates</div>
                                 <div class="mdl-stepper-bar-left"></div>
@@ -63,7 +63,7 @@
                             </a>
                         </div>
                         <div class="mdl-stepper-step active-step">
-                            <a href="tour_signup_review.html" class= 'btn'>
+                            <a href="tour_signup_review.html" id="rev" class= 'btn disabled'>
                                 <div class="mdl-stepper-circle"><span>3</span></div>
                                 <div class="mdl-stepper-title">Review</div>
                                 <div class="mdl-stepper-bar-left"></div>
@@ -71,7 +71,7 @@
                             </a>
                         </div>
                         <div class="mdl-stepper-step">
-                            <a href="tour_signup_confirm.html" class= 'btn'>
+                            <a href="tour_signup_confirm.html" id="info" class= 'btn disabled'>
                                 <div class="mdl-stepper-circle"><span>4</span></div>
                                 <div class="mdl-stepper-title">Confirmation</div>
                                 <div class="mdl-stepper-bar-left"></div>
@@ -144,6 +144,27 @@
          * Retrieves from data from local storage and displays content on confirmation page
          */
         var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
+        dataObject.visited_page_3 = true; 
+        localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+
+        console.log(dataObject)
+        if(dataObject.visited_page_1){
+            d = document.getElementById("info")
+            d.className = "btn"
+        }
+        if(dataObject.visited_page_2){
+            d = document.getElementById("sched")
+            d.className = "btn"
+        }
+        if(dataObject.visited_page_3){
+            d = document.getElementById("rev")
+            d.className = "btn"
+        }
+        if(dataObject.visited_page_4){
+            d = document.getElementById("conf")
+            d.className = "btn"
+        }
+
         var tourPrefs = $("#tourPrefs");
 
         // Name, email and visitors

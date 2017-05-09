@@ -4,7 +4,7 @@
 // Holds the data in the form for scheduling a tour
 // This object is loaded and retrieved from local storage
 
-const dataVersion = "0.1";
+const dataVersion = "0.2";
 var personal_info_model = {
     name: '',
     email: '',
@@ -17,6 +17,10 @@ var personal_info_model = {
     prefer_ee:false,
     prefer_cs:false, 
     version: dataVersion,
+    visited_page_1: false,
+    visited_page_2: false,
+    visited_page_3: false,
+    visited_page_4: false,
 };
 
 // Bootstrap Form Group for adding a visitor
@@ -381,6 +385,7 @@ $("#submitPersonalInfo").click(function() {
     var csPref = $("#cs-choice").is(':checked');
     if (typeof(Storage) !== "undefined") {
         var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
+        dataObject.visited_page_1 = true;
         dataObject.name = requestorName;
         dataObject.email = requestorEmail;
         dataObject.visitors = additionalVisitors;
