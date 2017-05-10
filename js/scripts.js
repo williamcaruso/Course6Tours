@@ -405,10 +405,7 @@ $("#add_visitor").click(function() {
     extraVisitorCount += 1;
 });
 
-$(document).click(function(event) {
-    var text = event.target.id;
-    //console.log(text)
-});
+
 
 /**
     Used to remove textboxes for extra visitors
