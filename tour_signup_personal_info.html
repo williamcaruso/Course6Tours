@@ -51,7 +51,7 @@
                     <div class="mdl-card__supporting-text">
                         <div class="mdl-stepper-horizontal-alternative active-step">
                             <div class="mdl-stepper-step active-step">
-                                <a href="tour_signup_personal_info.html" id="info" class='btn disabled'>
+                                <a href="tour_signup_personal_info.html" onclick='save()' id="info" class='btn disabled'>
                                     <div class="mdl-stepper-circle"><span>1</span></div>
                                     <div class="mdl-stepper-title">Personal Info</div>
                                     <div class="mdl-stepper-bar-left"></div>
@@ -59,7 +59,7 @@
                                 </a>
                             </div>
                             <div class="mdl-stepper-step">
-                                <a href = "tour_signup_schedul.html" id="sched" class='btn disabled'>
+                                <a href = "tour_signup_schedul.html" onclick="save()" id="sched" class='btn disabled'>
                                     <div class="mdl-stepper-circle"><span>2</span></div>
                                     <div class="mdl-stepper-title">Pick Your Dates</div>
                                     <div class="mdl-stepper-bar-left"></div>
@@ -67,7 +67,7 @@
                                 </a>
                             </div>
                             <div class="mdl-stepper-step">
-                                <a href="tour_signup_review.html" id="rev" class= 'btn disabled'>
+                                <a href="tour_signup_review.html" onclick="save()" id="rev" class= 'btn disabled'>
                                     <div class="mdl-stepper-circle"><span>3</span></div>
                                     <div class="mdl-stepper-title">Review</div>
                                     <div class="mdl-stepper-bar-left"></div>
@@ -75,7 +75,7 @@
                                 </a>
                             </div>
                             <div class="mdl-stepper-step">
-                                <a href="tour_signup_confirm.html" id="conf" class= 'btn disabled'>
+                                <a href="tour_signup_confirm.html"  onclick="save()" id="conf" class= 'btn disabled'>
                                     <div class="mdl-stepper-circle"><span>4</span></div>
                                     <div class="mdl-stepper-title">Confirmation</div>
                                     <div class="mdl-stepper-bar-left"></div>
@@ -159,7 +159,35 @@
     
     <script src="js/scripts.js"></script>
 
+
     <script>
+
+            function save(){
+                var requestorName = $("#name").val();
+                var requestorEmail = $("#email").val();
+                var additionalVisitors = [];
+                var visitors = document.getElementsByClassName("extraVisitor");
+                for(var i=0; i<visitors.length; i++) {
+                   additionalVisitors.push(visitors[i].value);
+                }
+                var handicap = $("#accessible-choice").is(':checked');
+                var eePref = $("#ee-choice").is(':checked');
+                var csPref = $("#cs-choice").is(':checked');
+                if (typeof(Storage) !== "undefined") {
+                    var dataObject = JSON.parse(localStorage.getItem('personal_info_model'));
+                    dataObject.visited_page_1 = true;
+                    dataObject.name = requestorName;
+                    dataObject.email = requestorEmail;
+                    dataObject.visitors = additionalVisitors;
+                    dataObject.handicap = handicap;
+                    dataObject.prefer_ee = eePref;
+                    dataObject.prefer_cs = csPref;
+                    localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+
+                } else {
+                    console.log("Unable to store form values.");
+                }
+            }
             var dataObject = JSON.parse(localStorage.getItem("personal_info_model"));
             if (typeof(dataObject) !== 'undefinted' || typeof(dataObject) !== 'null') {
                 dataObject.name ? $('#name').val(dataObject.name) : '';
@@ -167,7 +195,7 @@
 
                  for (var i=0; i < dataObject.visitors.length; i++) {
 
-                     if(dataObject.visitors[i] != "removed"){
+                     if(dataObject.visitors[i] != "removed" & dataObject.visitors[i] != "null"){
                         console.log(i)
                         var visitorFormGroup = '<div id=' + i + ' class="form-group row"> <label for="visitor" class="col-2' +' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + i + '"" type="button"> Remove </button> </div> </div>';
                         $(visitorFormGroup).appendTo("#names");
@@ -181,7 +209,7 @@
                 entered = 0
                 for(var j=0; j<dataObject.visitors.length; j++) {
                         name = dataObject.visitors[j]
-                        if( name != "removed"){
+                        if( name != "removed" & name != "null"){
                         visitors[entered].value = name;
                         entered += 1
                     }

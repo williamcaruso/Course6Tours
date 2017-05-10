@@ -4,7 +4,7 @@
 // Holds the data in the form for scheduling a tour
 // This object is loaded and retrieved from local storage
 
-const dataVersion = "0.3";
+const dataVersion = "0.2";
 var personal_info_model = {
     name: '',
     email: '',
@@ -30,7 +30,6 @@ var extraVisitorCount = 0;
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
 const weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri"];
 var reserved = ["td33","td43","td63"];
-const today = new Date();
 var calendarLoadDate = new Date();
 const oneDay = 24*60*60*1000;
 
@@ -149,8 +148,7 @@ $(document).ready(function() {
             }
         }
         // Fill up calendar for todays week.
-        loadCalendar(today);
-        updateChoices();
+        loadCalendar(new Date());
     }
 });
 
@@ -158,6 +156,7 @@ const DATE_KEY = 'cell-date-object';
 
 function loadCalendar(day) {
     var retrievedObject = JSON.parse(localStorage.getItem('personal_info_model'));
+    var today = new Date();
     var monday = new Date(day.getTime() + (1 - day.getDay())*oneDay);
     var daysThisWeek = []
 
@@ -183,45 +182,39 @@ function loadCalendar(day) {
             var unav = isBeforeToday || (Math.random() < 0.1);
             
             // bind data to DOM object
-            var dayKey = dd;
-            if(dd < 10) {
-                dayKey = "0" + dd;
-            }
-            var k = mm +""+ dayKey +""+ (row-2);
+            var k = mm +""+ dd +""+ (row-2);
             var dateObj = {
                 'month' : month,
                 'day'   : dd,
-                'time'  : times[row-2],
+                'time'  : '',
                 'sort-key' : k
             };
-            //dateObj['time'] = times[row-2];
+            dateObj['time'] = times[row-2];
             $("#td"+row+day).data(DATE_KEY, dateObj);
 
             // Set Attributes for different cell types
             if(containsByKey(retrievedObject.dates, 'sort-key', k)) {
                 // cell has already been selected, according to saved data
                 $("#td"+row+day).attr("class", "slot selected-day");
+                $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
+                $("#td"+row+day).attr("onmouseexit", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",true);
-                $("#td"+row+day).data("available",true);
             }
             else if(unav) {
                 // Cell is unavailable
                 $("#td"+row+day).attr("class", "unav-day");
                 $("#td"+row+day).attr("onclick", "");
                 $("#td"+row+day).data("meta-selected",false);
-                $("#td"+row+day).data("available",false);
             } 
             else { 
                 // Normal unselected, available cell
                 $("#td"+row+day).attr("class", "slot");
                 $("#td"+row+day).attr("onclick","toggleAvailability(event)");
+                $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
+                $("#td"+row+day).attr("onmouseleave", "cellMouseExit(event)");
                 $("#td"+row+day).data("meta-selected",false);
-                $("#td"+row+day).data("available",true);
             }
-
-            $("#td"+row+day).attr("onmouseenter", "cellMouseEnter(event)");
-            $("#td"+row+day).attr("onmouseleave", "cellMouseExit(event)");
-            $("#td"+row+day).attr("onclick","toggleAvailability(event)");
          }
     }
 }
@@ -237,11 +230,7 @@ function nextWeek() {
 }
 
 function lastWeek() {
-    newDate = new Date(calendarLoadDate.getTime() - 7*oneDay);
-    if(newDate < today) {
-        return;
-    }
-    calendarLoadDate = newDate;
+    calendarLoadDate = new Date(calendarLoadDate.getTime() - 7*oneDay);
     loadCalendar(calendarLoadDate);
 }
 
@@ -294,7 +283,6 @@ function addSlotToDataObject(slot) {
     dates = sortByKey(doDays, 'sort-key');
     dataObject.dates = dates;
     localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
-    updateChoices();
 }
 
 function removeSlotFromDataObject(slot) {
@@ -306,7 +294,6 @@ function removeSlotFromDataObject(slot) {
     }
     dataObject.dates = dates;
     localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
-    updateChoices();
 }
 
 function toggleAvailability(event) {
@@ -314,15 +301,11 @@ function toggleAvailability(event) {
     var cell = $("#"+event.target.id);
     //var selected = cell.attributes["meta-selected"].value;
     var selected = cell.data("meta-selected");
-    var available = cell.data("available");
-    if(!available) {
-        return;
-    }
     if(!selected) {
         if(dataObj.dates.length >= 3) {
           return;
         }
-        cell.data("meta-selected", true);
+        cell.data("meta-selected", true);;
         cell.attr("class", "slot selected-day");
         addSlotToDataObject(cell.data(DATE_KEY));
     } else {
@@ -336,8 +319,7 @@ function cellMouseEnter(event) {
     var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
     var cell = $("#"+event.target.id);
     var selected = cell.data("meta-selected");
-    var available = cell.data("available");
-    if(!selected && dataObj.dates.length < 3 && available) {
+    if(!selected && dataObj.dates.length < 3) {
         cell.attr("class", "slot hover-day");
     }
 }
@@ -345,8 +327,7 @@ function cellMouseEnter(event) {
 function cellMouseExit(event) {
     var cell = $("#"+event.target.id);
     var selected = cell.data("meta-selected");
-    var available = cell.data("available");
-    if(!selected && available) {
+    if(!selected) {
         cell.attr("class", "slot");
     }
 }
@@ -377,22 +358,6 @@ function containsByKey(array, key, id) {
     return false;
 }
 
-function updateChoices() {
-    var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
-    
-    var labels = [$("#date1"), $("#date2"), $("#date3")];
-    var dates = dataObj.dates;
-    var i = 0;
-    for(i = 0; i<dates.length; i++) {
-        var labelString = "" + dates[i].month + " " + dates[i].day + " @ " + dates[i].time;
-        labels[i].text(labelString);
-    }
-    while(i < 3) {
-        labels[i].text("");
-        i++;
-    }
-}
-
 /**
  * Used to Append more textboxes to a page
  * http://stackoverflow.com/questions/18503634/jquery-to-create-dynamic-textboxes-on-button-click
@@ -405,15 +370,14 @@ $("#add_visitor").click(function() {
     extraVisitorCount += 1;
 });
 
-$(document).click(function(event) {
-    var text = event.target.id;
-    //console.log(text)
-});
+
+
+
+
 
 /**
     Used to remove textboxes for extra visitors
 */
-
 $("#names").on('click', "button[name='remove']", function () {
     //remove the input from the UI
     button_id = this.id;
