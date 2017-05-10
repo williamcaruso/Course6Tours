@@ -365,7 +365,7 @@ function containsByKey(array, key, id) {
 $("#add_visitor").click(function() {
     var visitorFormGroup = '<div id=' + extraVisitorCount + ' class="form-group row"> <label for="visitor" class="col-2' +
     ' col-form-label">Name:</label> <div class="col-10"> <input class="form-control extraVisitor" type="text" ' +
-    ' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + extraVisitorCount + '"" type="button"> Remove </button> </div> </div>';
+    ' name="visitor" placeholder="e.g. Alyssa Hacker"> <button name="remove" class="btn btn-primary" id="remove' + extraVisitorCount + '"" type="button"  style="float:right; margin-top:-39px; margin-right:-110px"> Remove </button> </div> </div>';
     $(visitorFormGroup).appendTo("#names");
     extraVisitorCount += 1;
 });
