@@ -4,7 +4,7 @@
 // Holds the data in the form for scheduling a tour
 // This object is loaded and retrieved from local storage
 
-const dataVersion = "0.2";
+const dataVersion = "0.3";
 var personal_info_model = {
     name: '',
     email: '',
@@ -30,8 +30,8 @@ var extraVisitorCount = 0;
 const times = ["10am","11am","12pm","1pm","2pm","3pm","4pm"];
 const weekdays = ["Mon", "Tues", "Wed", "Thurs", "Fri"];
 var reserved = ["td33","td43","td63"];
-var calendarLoadDate = new Date();
 const today = new Date();
+var calendarLoadDate = new Date();
 const oneDay = 24*60*60*1000;
 
 /**
@@ -150,6 +150,7 @@ $(document).ready(function() {
         }
         // Fill up calendar for todays week.
         loadCalendar(today);
+        updateChoices();
     }
 });
 
@@ -182,7 +183,11 @@ function loadCalendar(day) {
             var unav = isBeforeToday || (Math.random() < 0.1);
             
             // bind data to DOM object
-            var k = mm +""+ dd +""+ (row-2);
+            var dayKey = dd;
+            if(dd < 10) {
+                dayKey = "0" + dd;
+            }
+            var k = mm +""+ dayKey +""+ (row-2);
             var dateObj = {
                 'month' : month,
                 'day'   : dd,
@@ -232,7 +237,11 @@ function nextWeek() {
 }
 
 function lastWeek() {
-    calendarLoadDate = new Date(calendarLoadDate.getTime() - 7*oneDay);
+    newDate = new Date(calendarLoadDate.getTime() - 7*oneDay);
+    if(newDate < today) {
+        return;
+    }
+    calendarLoadDate = newDate;
     loadCalendar(calendarLoadDate);
 }
 
@@ -285,6 +294,7 @@ function addSlotToDataObject(slot) {
     dates = sortByKey(doDays, 'sort-key');
     dataObject.dates = dates;
     localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+    updateChoices();
 }
 
 function removeSlotFromDataObject(slot) {
@@ -296,6 +306,7 @@ function removeSlotFromDataObject(slot) {
     }
     dataObject.dates = dates;
     localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
+    updateChoices();
 }
 
 function toggleAvailability(event) {
@@ -364,6 +375,22 @@ function containsByKey(array, key, id) {
         }
     }
     return false;
+}
+
+function updateChoices() {
+    var dataObj = JSON.parse(localStorage.getItem("personal_info_model"));
+    
+    var labels = [$("#date1"), $("#date2"), $("#date3")];
+    var dates = dataObj.dates;
+    var i = 0;
+    for(i = 0; i<dates.length; i++) {
+        var labelString = "" + dates[i].month + " " + dates[i].day + " @ " + dates[i].time;
+        labels[i].text(labelString);
+    }
+    while(i < 3) {
+        labels[i].text("");
+        i++;
+    }
 }
 
 /**

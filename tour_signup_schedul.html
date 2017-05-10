@@ -91,9 +91,9 @@
                 </div>
                 <div class= "col-md-11" style='margin-top:30px; margin-left:30px'>
                     <p></p>
-                    <p><b>Selected Time 1:</b> </p>
-                    <p><b>Selected Time 2:</b> </p>
-                    <p><b>Selected Time 3:</b> </p>
+                    <p><b>Selected Time 1:</b> <span id="date1"/> </p>
+                    <p><b>Selected Time 2:</b> <span id="date2"/> </p>
+                    <p><b>Selected Time 3:</b> <span id="date3"/> </p>
                 </div>
 
                 <div class='forwardBack'>
@@ -133,7 +133,6 @@
         dataObject.visited_page_2 = true;
         localStorage.setItem('personal_info_model', JSON.stringify(dataObject));
 
-        console.log(dataObject)
         if(dataObject.visited_page_1){
             d = document.getElementById("info")
             d.className = "btn"
